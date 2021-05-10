@@ -5,7 +5,7 @@
   * Username = root
   * password = admin
     * as it is local server
-  * install Python 3.9 with packages:
+* install Python 3.9 with packages:
   * pandas 1.2.4
   * ?
   * ?
