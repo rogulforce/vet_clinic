@@ -10,11 +10,11 @@ Podczas realizacji raportu możesz pracować na lokalnej bazie danych. Jeśli ch
 
 Zaprojektuj i zaimplementuj schemat bazy danych kliniki weterynaryjnej. Baza powinna przynajmniej posiadać informacje o:
 
-    pracownikach,
-    posiadanym sprzęcie,
-    pacjentach kliniki,
-    zaplanowanych wizytach,
-    kosztach i zyskach.
+* pracownikach,
+* posiadanym sprzęcie,
+* pacjentach kliniki,
+* zaplanowanych wizytach,
+* kosztach i zyskach.
 
 Schemat możesz utworzyć ręcznie (CREATE TABLE itp) albo automatycznie przez połączenie z jakimś pakietem statystycznym lub językiem programowania.
 
@@ -24,11 +24,11 @@ Połącz bazę danych z wybranym narzędziem (Python/R/Excel/Matlab/Mathematica/
 
 W oparciu o losowanie wygeneruj dane do tabel. Wylosowane dane powinny mieć sens. Zadbaj między innymi o to, żeby:
 
-    imiona i nazwiska były realistycznej długości, na przykład losując pary popularnych imion i nazwisk na podstawie danych GUS,
-    daty były uporządkowane, czyli na przykład data wyleczenia nie była wcześniejsza niż data rejestracji na wizytę,
-    informacje o pacjentach miały sens, nie leczymy psów mających 300 lat i ważących 973 kilogramy, ani kotów mających 23 metry długości,
-    pensje pracowników powinny spełniać wymogi minimalnej krajowej, a jeszcze lepiej zapoznać się ze średnimi danymi znajdującymi się w Internecie,
-    zwierzęta powinny być legalne, nadające się do leczenia i nie powinny należeć do wyginiętych gatunków — nie leczy się gupików, nie przychodzi się do kliniki z tygrysem bengalskim a z mamutem nie da się przyjść, nawet gdyby były legalne.
+* imiona i nazwiska były realistycznej długości, na przykład losując pary popularnych imion i nazwisk na podstawie danych GUS,
+* daty były uporządkowane, czyli na przykład data wyleczenia nie była wcześniejsza niż data rejestracji na wizytę,
+* informacje o pacjentach miały sens, nie leczymy psów mających 300 lat i ważących 973 kilogramy, ani kotów mających 23 metry długości,
+* pensje pracowników powinny spełniać wymogi minimalnej krajowej, a jeszcze lepiej zapoznać się ze średnimi danymi znajdującymi się w Internecie,
+* zwierzęta powinny być legalne, nadające się do leczenia i nie powinny należeć do wyginiętych gatunków — nie leczy się gupików, nie przychodzi się do kliniki z tygrysem bengalskim a z mamutem nie da się przyjść, nawet gdyby były legalne.
 
 Rozmiar bazy powinien być rozsądny (porównywalny z tym, co może zebrać rzeczywista klinika). Załóż, że klinika działa minimum od 3 miesięcy. Użyj wyszukiwarki a znajdziesz dużo informacji o klinikach weterynaryjnych.
 
@@ -36,10 +36,10 @@ Rozmiar bazy powinien być rozsądny (porównywalny z tym, co może zebrać rzec
 
 Połącz bazę danych z wybranym narzędziem (może być inne niż w poprzedniej części!).
 
-    Przygotuj wykres przedstawiający liczbę wizyt każdego dnia.
-    Przygotuj wykres przedstawiający bilans zysków i strat kliniki.
-    Stwórz listę zwierzaków najdłużej czekających na wizytę.
-    Postaw i odpowiedz analizą na minimum cztery dodatkowe pytania.
+* Przygotuj wykres przedstawiający liczbę wizyt każdego dnia.
+* Przygotuj wykres przedstawiający bilans zysków i strat kliniki.
+* Stwórz listę zwierzaków najdłużej czekających na wizytę.
+* Postaw i odpowiedz analizą na minimum cztery dodatkowe pytania.
 
 ## Część 4 - raport (10p)
 
@@ -51,11 +51,11 @@ Przedstaw wykonaną analizę w formie raportu PDF lub HTML — całość procedu
 
 Do projektu dołącz dokumentację a w niej:
 
-    spis użytych technologii,
-    listę plików i ich zawartości,
-    kolejność i sposób uruchamiania plików, aby uzyskać gotowy projekt,
-    schemat projektu bazy danych,
-    dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem,
-    uzasadnienie, że baza jest w EKNF,
-    opis, co było najtrudniejsze podczas realizacji projektu.
+* spis użytych technologii,
+* listę plików i ich zawartości,
+* kolejność i sposób uruchamiania plików, aby uzyskać gotowy projekt,
+* schemat projektu bazy danych,
+* dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem,
+* uzasadnienie, że baza jest w EKNF,
+* opis, co było najtrudniejsze podczas realizacji projektu.
 
