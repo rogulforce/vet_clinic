@@ -1,2 +1,2 @@
 pobranie PEWNEJ bazy uzytkownikow
-	oczyszczenie bazy
+	oczyszczenie bazy i zapisanie do .csv (python pandas)
