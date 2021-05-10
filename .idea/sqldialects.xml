@@ -2,5 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="notebook://E:/projekty/vet_clinic/code/connect_example.ipynb" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/final_code/schema_creation.py" dialect="GenericSQL" />
   </component>
 </project>
