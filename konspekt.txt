@@ -1,0 +1,2 @@
+pobranie PEWNEJ bazy uzytkownikow
+	oczyszczenie bazy
