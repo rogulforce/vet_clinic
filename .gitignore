@@ -128,3 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /Poland.txt
+
+# vscdoe settings
+.vscdoe
+.vscode/settings.json

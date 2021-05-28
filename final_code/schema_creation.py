@@ -13,7 +13,7 @@ def connection(user: str = "root", password: str = "admin",
         port (int): Defaults to 3306
         **kwargs (str): database=, if you want to connect to exact database.
 
-    Returns (mariadb.connect().cursor()): current connection
+    Returns (mariadb.connect()): current connection
     """
     try:
         conn = mariadb.connect(
@@ -28,8 +28,7 @@ def connection(user: str = "root", password: str = "admin",
     except mariadb.Error as e:
         print(f"Error connecting to MariaDB Platform: {e}")
         sys.exit(1)
-    cur = conn.cursor()
-    return cur
+    return conn
 
 
 def schema_creation(cursor, name: str = 'vet_clinic'):
@@ -60,7 +59,8 @@ def insert_to_tables(cursor, database):
 
 
 if __name__ == "__main__":
-    cur = connection()
+    conn = connection()
+    cur = conn.cursor()
     schema_creation(cur, "vet_clinic")
     create_tables(cur, "vet_clinic")
     insert_to_tables(cur, "vet_clinic")
