@@ -10,7 +10,8 @@ def random_date(start, end):
     random_second = r.randrange(int_delta)
     return start + datetime.timedelta(seconds=random_second)
 
-def dogs():
+
+def dogs_regression():
     # tabela z rasami psów, ich wysokością i masą
     df = pd.read_excel('dogs.xlsx')
 
@@ -35,12 +36,15 @@ def dogs():
     mean_low = LinearRegression().fit(x_mean, y_low)
     mean_high = LinearRegression().fit(x_mean, y_high)
 
+    return ([mean_low.intercept_, mean_low.coef_[0], mean_high.intercept_, mean_low.coef_[0], min(h_low), max(h_high)])
+
+def dogs(b):
     # zmienna objaśniająca to wysokość psa, więc losujemy jakąś
-    gen_height = r.uniform(min(h_low), max(h_high))
+    gen_height = r.uniform(b[4], b[5])
 
     # przewidywalna masa psa o zadanej wysokości
-    lower_predict = mean_low.predict(gen_height)
-    higher_predict = mean_high.predict(gen_height)
+    lower_predict = b[0] + b[1] * gen_height
+    higher_predict = b[2] + b[3] * gen_height
 
     # i losujemy masę z tego przedziału
     gen_weight = r.uniform(lower_predict, higher_predict)
@@ -54,7 +58,7 @@ def dogs():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('dog', gen_height, gen_weight[0], birthdate)
+    return ('dog', gen_height, gen_weight, birthdate)
 
 
 def cats():
@@ -204,7 +208,8 @@ def iguanas():
 
 if __name__ == "__main__":
     # kilka przykładowych rezultatów
-    doggo_size = dogs()
+    a = dogs_regression()
+    doggo_size = dogs(a)
     print(doggo_size)
     cat_size = cats()
     print(cat_size)
