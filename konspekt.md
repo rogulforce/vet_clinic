@@ -5,11 +5,11 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 # Część 1 - projekt i utworzenie schematu (10p)
 * analiza potrzebnych danych
 	* na zasadzie burzy mózgów i researchu	
-* utworzenie potrzebnego schematu za pomocą narzędzia `NAZWA_NARZĘDZIA`
+* utworzenie potrzebnego schematu za pomocą narzędzia `ERD EDITOR` - dodatku do `Visual Studio Code`
 
 **WSTAWIĆ TUTAJ ZDJĘCIE SCHEMATU**
 
-* wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku`
+* wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku.py`
 
 # Część 2 - skryptowe wypełnienie bazy (15p)
 
