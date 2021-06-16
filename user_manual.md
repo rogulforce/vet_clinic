@@ -6,7 +6,7 @@
 * install Python 3.9 with packages:
   * pandas 1.2.4
   * mariadb 1.0.6
-  * ?
+  * numpy 1.20.3
   
 * Connect to database
   * Host = localhost
