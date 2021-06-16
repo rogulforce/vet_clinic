@@ -44,8 +44,8 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	  * na podstawie wizyty
 	* costs
 	  * na podstawie wszystkiego innego
-  *  przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania
+* przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania:
   ```sql
   SELECT * FROM nazwa_tabeli LIMIT 10
   ```
-  WSTAWIĆ TUTAJ SCREENY WYNIKÓW 
+  WSTAWIĆ TUTAJ SCREENY WYNIKÓW
