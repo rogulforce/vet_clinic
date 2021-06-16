@@ -48,3 +48,4 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
   ```sql
   SELECT * FROM nazwa_tabeli LIMIT 10
   ```
+  WSTAWIĆ TUTAJ SCREENY WYNIKÓW 
