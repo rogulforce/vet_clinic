@@ -1,13 +1,24 @@
-# tutaj po kolei co robimy żeby mieć to na bieżąco
-pobranie PEWNEJ bazy uzytkownikow
-	oczyszczenie bazy i zapisanie do .csv (python pandas)
-	oczyszczenie bazy
-	zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
-	zapisanie do .csv (python pandas)
+# Wstęp
+Bazę tworzymy i wypełniamy skryptowo. 
+Przed przystąpieniem do dalszych części należy przejść do pliku `user_manual.md` i zrealizować zawarte w niej polecenia.
 
+# Część 1 - projekt i utworzenie schematu (10p)
+* analiza potrzebnych danych
+	* na zasadzie burzy mózgów i researchu	
+* utworzenie potrzebnego schematu za pomocą narzędzia `NAZWA_NARZĘDZIA`
 
+**WSTAWIĆ TUTAJ ZDJĘCIE SCHEMATU**
 
-* tworzenie bazy przy użyciu schema_creation.py
+* wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku`
+
+# Część 2 - skryptowe wypełnienie bazy (15p)
+
+* wygenerowanie cząstkowej bazy użytkownikow Facebooka
+	* oczyszczenie bazy
+	* zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
+	* zapisanie do `data/users_randomized.csv` (python pandas)
+	
+* tworzenie bazy przy użyciu `schema_creation.py`
 
 
 * uzupełnianie bazy
