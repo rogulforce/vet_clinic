@@ -16,7 +16,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 * wygenerowanie cząstkowej bazy użytkownikow Facebooka
 	* oczyszczenie bazy
 	* zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
-	* zapisanie do `data/users_randomized.csv` (python pandas)
+	* zapisanie do `data/users_randomized.csv` przy pomocy `python pandas`
 	
 * tworzenie bazy przy użyciu `schema_creation.py`
 
