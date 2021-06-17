@@ -2,13 +2,13 @@ from dataclasses import dataclass
 import numpy as np
 import mariadb
 import sys
+import pandas as pd
+import typing
 
 
 @dataclass
 class Fulfillment:
-    vets_number: int = 3
-    rooms_number: int = 5
-    visits_number: int = 20
+    cursor: 'typing.Any'
 
     def employees(self, name, surname, sex, phone, position, salary):
         qr = 'INSERT INTO vet_clinic.employees (name, surname, sex, phone, position, salary) VALUES (?, ?, ?, ?, ?, ?)'
