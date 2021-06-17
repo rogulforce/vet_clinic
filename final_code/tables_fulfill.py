@@ -1,7 +1,6 @@
+import random
 from dataclasses import dataclass
 import numpy as np
-import mariadb
-import sys
 import pandas as pd
 import typing
 
@@ -17,9 +16,9 @@ class Fulfillment:
     def rooms(self, number, name):
         self.cursor.execute('INSERT INTO vet_clinic.rooms (number, name) VALUES (?, ?)', (number, name))
 
-    def equipment(self, eqName, status, room_number, number):
-        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, number) VALUES (?, ?, ?, ?)'
-        self.cursor.execute(qr, (eqName, status, room_number, number))
+    def equipment(self, eqName, status, room_number, quantity):
+        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, quantity) VALUES (?, ?, ?, ?)'
+        self.cursor.execute(qr, (eqName, status, room_number, quantity))
 
     def visits(self, petID, employeeID, registration_date, planned_date, real_date, status, cost, number):
         qr = '''INSERT INTO vet_clinic.visits
@@ -55,12 +54,13 @@ def fill(cursor):
         vet.employees(people.iloc[2, 0], people.iloc[2, 1], people.iloc[2, 3], str(people.iloc[2, 2]), 'Szef',
                       int(np.random.randint(5361, 10000)))
         # Sprzątaczka na B2B
-        vet.employees(people.iloc[3, 0], people.iloc[3, 1], people.iloc[3, 3], str(people.iloc[3, 2]), 'Konserwator Powierzchni Płaskich',
-                      int(np.random.randint(2600, 3220)))
+        vet.employees(people.iloc[3, 0], people.iloc[3, 1], people.iloc[3, 3], str(people.iloc[3, 2]),
+                      'Konserwator Powierzchni Płaskich', int(np.random.randint(2600, 3220)))
 
         # weterynarze int(np.random.randint(3670, 5360)))
         for i in range(vets_number):
-            vet.employees(people.iloc[i+4, 0], people.iloc[i+4, 1], people.iloc[i+4, 3], str(people.iloc[i+4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
+            vet.employees(people.iloc[i+4, 0], people.iloc[i+4, 1], people.iloc[i+4, 3],
+                          str(people.iloc[i+4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
 
     def room_fill():
         rooms = {1: 'recepcja', 2: 'gabinet 1', 3: 'gabinet 2', 4: 'socjal', 5: 'zaplecze'}
@@ -68,7 +68,9 @@ def fill(cursor):
             vet.rooms(key+100, val)
 
     def equipment_fill():
-        pass
+        names = pd.read_excel('../generate/meds.xlsx', names=['name'])['name']
+        for name in names.values:
+            vet.equipment(str(name), True, random.randint(2, 3)+100, random.randint(0, 5))
 
     def meds_fill():
         pass
