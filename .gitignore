@@ -132,3 +132,5 @@ dmypy.json
 # vscdoe settings
 .vscdoe
 .vscode/settings.json
+
+.idea
