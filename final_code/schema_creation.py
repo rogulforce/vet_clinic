@@ -58,7 +58,7 @@ def insert_to_tables(cursor, database):
         cursor.execute(f"INSERT INTO {database}.sample (id, name) VALUES ({i},'hwdp')")
 
 
-def exectute_sql_code(cursor, code: str):
+def execute_sql_code(cursor, code: str):
     """ function executing given text
 
     Args:
