@@ -50,6 +50,7 @@ def fill(cursor):
     rooms_number = vets_number + 2
     visits_number = 20
     people = pd.read_csv(r'../data/users_randomized.csv').sample(1000)
+    meds = pd.read_csv(r'../data/drugs.csv')
     vet = Fulfillment(cursor)
 
     def employee_fill():
@@ -82,7 +83,14 @@ def fill(cursor):
             vet.equipment(str(name), True, random.randint(2, 3)+100, random.randint(0, 5))
 
     def meds_fill():
-        pass
+        for name in meds.values:
+            in_stock = np.random.randint(0, 10)
+            ordered = np.random.randint(0, 5)
+            discontinued = 0
+            if in_stock + ordered == 0:
+                discontinued = 1
+            price = np.random.randint(5, 161)
+            vet.meds(str(name[0]), in_stock, ordered, discontinued, price)
 
     def visits_fill():
         # tutaj przy okazji meds described?
