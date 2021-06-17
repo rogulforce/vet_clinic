@@ -21,7 +21,7 @@ pobranie PEWNEJ bazy uzytkownikow
     * equipment
 	  * trzeba wymyśleć jaki
 	  * przypisujemy do pokoju
-  	* visits
+    * visits
 		* dodać kilka zaplanowanych
 	* meds_perscribed
 	  * na podstawie wizyty
