@@ -1,21 +1,16 @@
-from schema_creation import connection, schema_creation, exectute_sql_code
+from schema_creation import connection, schema_creation, execute_sql_code
+from tables_fulfill import fill
 
 
 def main():
     """
     there will be execution of all the other code from final_code directory
     """
-    # conn = connection(password='8nqw$NS54Yh7FgWU')
+    conn = connection(password='8nqw$NS54Yh7FgWU')
 
     # connect to Db
-    conn = connection()
+    # conn = connection()
     cur = conn.cursor()
-
-    # create or replace schema and create tables
-    try:
-        exectute_sql_code(cur, 'DROP SCHEMA vet_clinic;')
-    except:
-        pass
 
     with open('../db_schema/db_creation.sql') as file:
         a = file.read()
@@ -28,8 +23,11 @@ def main():
             pass
         else:
             print(item)
-            exectute_sql_code(cur, item)
+            execute_sql_code(cur, item)
 
+    # data fill
+    fill(cur)
+    conn.commit()
 
 
 if __name__ == "__main__":

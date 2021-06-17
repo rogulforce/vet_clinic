@@ -1,4 +1,5 @@
-CREATE SCHEMA vet_clinic;
+SET FOREIGN_KEY_CHECKS=0;
+CREATE OR replace SCHEMA vet_clinic;
 
 USE vet_clinic;
 
@@ -69,14 +70,15 @@ CREATE TABLE `pets`
 
 CREATE TABLE `rooms`
 (
-    `number` INT UNIQUE PRIMARY KEY NOT NULL
+    `number` INT UNIQUE PRIMARY KEY NOT NULL,
+    `name` varchar(20)
 );
 
 CREATE TABLE `visits`
 (
     `visitID`           INT UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `petID`             INT                    NOT NULL,
-    `emplyeeID`         INT                    NOT NULL,
+    `employeeID`         INT                    NOT NULL,
     `registration_date` DATETIME               NOT NULL,
     `planned_date`      DATETIME               NOT NULL ,
     `real_date`         DATETIME ,
@@ -92,7 +94,7 @@ ALTER TABLE `visits`
     ADD FOREIGN KEY (`petID`) REFERENCES `pets` (`petID`);
 
 ALTER TABLE `visits`
-    ADD FOREIGN KEY (`emplyeeID`) REFERENCES `employees` (`employeeID`);
+    ADD FOREIGN KEY (`employeeID`) REFERENCES `employees` (`employeeID`);
 
 ALTER TABLE `meds_perscribed`
     ADD FOREIGN KEY (`drugID`) REFERENCES `meds` (`drugID`);
@@ -105,3 +107,5 @@ ALTER TABLE `visits`
 
 ALTER TABLE `equipment`
     ADD FOREIGN KEY (`number`) REFERENCES `rooms` (`number`);
+
+SET FOREIGN_KEY_CHECKS=1;
