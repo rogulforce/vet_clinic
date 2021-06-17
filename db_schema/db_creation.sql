@@ -1,14 +1,14 @@
-SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS = 0;
 CREATE OR replace SCHEMA vet_clinic;
 
 USE vet_clinic;
 
 CREATE TABLE `cash_flow`
 (
-    `cfid`   INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `date`   DATETIME               NOT NULL,
-    `amount` INT                    NOT NULL,
-    `type`   VARCHAR(128)           NOT NULL
+    `cfid`   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `date`   DATETIME     NOT NULL,
+    `amount` INT          NOT NULL,
+    `type`   VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE `employees`
@@ -17,8 +17,8 @@ CREATE TABLE `employees`
     `name`       VARCHAR(128)            NOT NULL,
     `surname`    VARCHAR(128)            NOT NULL,
     `sex`        ENUM ('Male', 'Female') NOT NULL,
-    `phone`      varchar(128)                 NULL,
-    `position`   varchar(128)                 NULL,
+    `phone`      varchar(128)            NULL,
+    `position`   varchar(128)            NULL,
     `salary`     decimal(10, 2)          NULL
 );
 
@@ -26,9 +26,9 @@ CREATE TABLE `equipment`
 (
     `eqID`        int UNIQUE PRIMARY KEY AUTO_INCREMENT,
     `eqName`      varchar(128) NULL,
-    `status`      BOOL    NOT NULL,
-    `room_number` char(2) NULL,
-    `number`      INT     NOT NULL
+    `status`      BOOL         NOT NULL,
+    `room_number` int          NULL,
+    `quantity`      INT          NOT NULL
 );
 
 CREATE TABLE `meds`
@@ -41,7 +41,7 @@ CREATE TABLE `meds`
     `price`        float                  NULL
 );
 
-CREATE TABLE `meds_perscribed`
+CREATE TABLE `meds_prescribed`
 (
     `drugID`  INT   NOT NULL,
     `visitID` INT   NOT NULL,
@@ -53,8 +53,8 @@ CREATE TABLE `owners`
     `ownerID` INT UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `name`    VARCHAR(128)           NOT NULL,
     `surname` VARCHAR(128)           NOT NULL,
-    `phone`   varchar(128)                NOT NULL,
-    `mail`    varchar(128)                NULL
+    `phone`   varchar(128)           NOT NULL,
+    `mail`    varchar(128)           NULL
 );
 
 CREATE TABLE `pets`
@@ -71,19 +71,19 @@ CREATE TABLE `pets`
 CREATE TABLE `rooms`
 (
     `number` INT UNIQUE PRIMARY KEY NOT NULL,
-    `name` varchar(20)
+    `name`   varchar(20)
 );
 
 CREATE TABLE `visits`
 (
     `visitID`           INT UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `petID`             INT                    NOT NULL,
-    `employeeID`         INT                    NOT NULL,
+    `employeeID`        INT                    NOT NULL,
     `registration_date` DATETIME               NOT NULL,
-    `planned_date`      DATETIME               NOT NULL ,
-    `real_date`         DATETIME ,
-    `status`            BOOL                   NOT NULL ,
-    `cost`              DECIMAL(8, 2)                NOT NULL ,
+    `planned_date`      DATETIME               NOT NULL,
+    `real_date`         DATETIME,
+    `status`            BOOL                   NOT NULL,
+    `cost`              DECIMAL(8, 2)          NOT NULL,
     `number`            INT                    NOT NULL
 );
 
@@ -96,16 +96,16 @@ ALTER TABLE `visits`
 ALTER TABLE `visits`
     ADD FOREIGN KEY (`employeeID`) REFERENCES `employees` (`employeeID`);
 
-ALTER TABLE `meds_perscribed`
+ALTER TABLE `meds_prescribed`
     ADD FOREIGN KEY (`drugID`) REFERENCES `meds` (`drugID`);
 
-ALTER TABLE `meds_perscribed`
+ALTER TABLE `meds_prescribed`
     ADD FOREIGN KEY (`visitID`) REFERENCES `visits` (`visitID`);
 
 ALTER TABLE `visits`
     ADD FOREIGN KEY (`number`) REFERENCES `rooms` (`number`);
 
 ALTER TABLE `equipment`
-    ADD FOREIGN KEY (`number`) REFERENCES `rooms` (`number`);
+    ADD FOREIGN KEY (`room_number`) REFERENCES `rooms` (`number`);
 
-SET FOREIGN_KEY_CHECKS=1;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,7 +1,6 @@
+import random
 from dataclasses import dataclass
 import numpy as np
-import mariadb
-import sys
 import pandas as pd
 import typing
 
@@ -17,9 +16,9 @@ class Fulfillment:
     def rooms(self, number, name):
         self.cursor.execute('INSERT INTO vet_clinic.rooms (number, name) VALUES (?, ?)', (number, name))
 
-    def equipment(self, eqName, status, room_number, number):
-        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, number) VALUES (?, ?, ?, ?)'
-        self.cursor.execute(qr, (eqName, status, room_number, number))
+    def equipment(self, eqName, status, room_number, quantity):
+        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, quantity) VALUES (?, ?, ?, ?)'
+        self.cursor.execute(qr, (eqName, status, room_number, quantity))
 
     def visits(self, petID, employeeID, registration_date, planned_date, real_date, status, cost, number):
         qr = '''INSERT INTO vet_clinic.visits
@@ -35,6 +34,15 @@ class Fulfillment:
         qr = 'INSERT INTO vet_clinic.owners (name, surname, phone, mail) VALUES (?, ?, ?, ?)'
         self.cursor.execute(qr, (name, surname, phone, mail))
 
+    def meds(self, name, in_stock, ordered, discontinued, price):
+        qr = 'INSERT INTO vet_clinic.meds (name, in_stock, ordered, discontinued, price) VALUES (?, ?, ?, ?, ?)'
+        self.cursor.execute(qr, (name, in_stock, ordered, discontinued, price))
+
+    def meds_prescribed(self, drugID, visitID, amount):
+        qr = '''INSERT INTO vet_clinic.meds_prescribed (name, in_stock, ordered, discontinued, price)
+        VALUES (?, ?, ?, ?, ?)'''
+        self.cursor.execute(qr, (drugID, visitID, amount))
+
 
 def fill(cursor):
     # zmienić później na rand values
@@ -42,6 +50,7 @@ def fill(cursor):
     rooms_number = vets_number + 2
     visits_number = 20
     people = pd.read_csv(r'../data/users_randomized.csv').sample(1000)
+    meds = pd.read_csv(r'../data/drugs.csv')
     vet = Fulfillment(cursor)
 
     def employee_fill():
@@ -55,23 +64,33 @@ def fill(cursor):
         vet.employees(people.iloc[2, 0], people.iloc[2, 1], people.iloc[2, 3], str(people.iloc[2, 2]), 'Szef',
                       int(np.random.randint(5361, 10000)))
         # Sprzątaczka na B2B
-        vet.employees(people.iloc[3, 0], people.iloc[3, 1], people.iloc[3, 3], str(people.iloc[3, 2]), 'Konserwator Powierzchni Płaskich',
-                      int(np.random.randint(2600, 3220)))
+        vet.employees(people.iloc[3, 0], people.iloc[3, 1], people.iloc[3, 3], str(people.iloc[3, 2]),
+                      'Konserwator Powierzchni Płaskich', int(np.random.randint(2600, 3220)))
 
         # weterynarze int(np.random.randint(3670, 5360)))
         for i in range(vets_number):
-            vet.employees(people.iloc[i+4, 0], people.iloc[i+4, 1], people.iloc[i+4, 3], str(people.iloc[i+4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
+            vet.employees(people.iloc[i+4, 0], people.iloc[i+4, 1], people.iloc[i+4, 3],
+                          str(people.iloc[i+4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
 
     def room_fill():
-        rooms = {1: 'recepcja', 2: 'gabinet 1', 3: 'gabinet 2', 4: 'socjal', 5: 'zaplecze'}
+        rooms = {1: 'recepcja', 2: 'gabinet 1', 3: 'gabinet 2', 4: 'socjal', 5: 'zaplecze', 6: 'gabinet zabiegowy'}
         for key, val in rooms.items():
             vet.rooms(key+100, val)
 
     def equipment_fill():
-        pass
+        names = pd.read_excel('../generate/meds.xlsx', names=['name'])['name']
+        for name in names.values:
+            vet.equipment(str(name), True, random.randint(2, 3)+100, random.randint(0, 5))
 
     def meds_fill():
-        pass
+        for name in meds.values:
+            in_stock = np.random.randint(0, 10)
+            ordered = np.random.randint(0, 5)
+            discontinued = 0
+            if in_stock + ordered == 0:
+                discontinued = 1
+            price = np.random.randint(5, 161)
+            vet.meds(str(name[0]), in_stock, ordered, discontinued, price)
 
     def visits_fill():
         # tutaj przy okazji meds described?
