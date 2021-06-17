@@ -32,7 +32,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
     * equipment
 	  * trzeba wymyśleć jaki
 	  * przypisujemy do pokoju
-  	* visits
+    * visits
 		* dodać kilka zaplanowanych
 	* meds_perscribed
 	  * na podstawie wizyty

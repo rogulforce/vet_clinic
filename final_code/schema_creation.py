@@ -58,6 +58,16 @@ def insert_to_tables(cursor, database):
         cursor.execute(f"INSERT INTO {database}.sample (id, name) VALUES ({i},'hwdp')")
 
 
+def exectute_sql_code(cursor, code: str):
+    """ function executing given text
+
+    Args:
+        cursor (mariadb.connect().cursor()): execution cursor
+        code: SQL code to execute
+    """
+    cursor.execute(code)
+
+
 if __name__ == "__main__":
     conn = connection()
     cur = conn.cursor()
