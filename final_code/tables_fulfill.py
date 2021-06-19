@@ -92,16 +92,19 @@ def fill(cursor):
             price = np.random.randint(5, 161)
             vet.meds(str(name[0]), in_stock, ordered, discontinued, price)
 
-    def visits_fill():
-        # tutaj przy okazji meds described?
-        pass
-
     def owners_fill():
         # tutaj owner?
         pass
 
     def pets_fill():
-        # tutaj owner?
+        # prawdopodobieństwo jaki zwierzak
+        probs = {'dog': 0.3, 'cat': 0.3, 'hamster': 0.05, 'rabbit': 0.05, 'rat': 0.01,
+                 'guinea_pig': 0.005, 'chinchilla': 0.01, 'turtle': 0.01, 'canary': 0.01,
+                 'budgerigar': 0.01, 'iguana': 0.01}
+        pass
+
+    def visits_fill():
+        # tutaj przy okazji meds described?
         pass
 
     employee_fill()
