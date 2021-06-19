@@ -28,27 +28,39 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 * uzupełnianie bazy przy użyciu `main.py` (kod znajduje się w `tables_fulfill.py`)
 	* employees
-	  * księgowa
-	  * szef
-	  * sekretarka
-	  * 2-3 weterynarzy
+		* pracownicy
+	  		* księgowa
+	  		* recepcjonistka
+	  		* szef
+	  		* 3 weterynarzy
+	 		* osoba sprzątająca
+	 	* zarobki - na podstawie strony wynagrodzenia.pl
+	 	* imiona i nazwiska na podstawie zrandomizowanych wartości z bazy użytkowników Facebooka
 	* rooms
-	  * liczba weterynarzy + 2
-    * equipment
-	  * lista, z której bierzemy informacje znajduje się w pliku `xxx`
-	
+		* 2 gabinety weterynarzy
+	  	* gabinet zabiegowy
+	  	* recepcja
+	  	* pomieszczenie socjalne
+	  	* zaplecze
+	* equipment
+	  	* lista, z której bierzemy informacje znajduje się w pliku `meds.xlsx`
+	  	* wygenerowan losowo dane liczbowe
+	  	* pomieszczenie na podstawie informacji o pomieszczeniach
 	* meds
-	  * lista, z której bierzemy informacje znajduje się w pliku `xxx`
+	  	* lista, z której bierzemy informacje znajduje się w pliku `drugs.csv`
+	  	* wygenerowane losowo dane liczbowe
 	* visits
-		* dod
+	  
 	* pets
-	  * na podstawie wizyty
+	  	* psy: regresja liniowa na podstawie pliku `dogs.xlsx`
+	  	* waga, wzrost oraz czas życia wszystkich zwierząt na podstawie informacji dostępnych w internecie
+	  	* wygenerowana losowo data urodzenia
 	* owners
-	  * na podstawie wizyty
+	  	* na podstawie wizyty
 	* meds_perscribed
-	  * na podstawie wizyty
+	  	* na podstawie wizyty
 	* costs
-	  * na podstawie wszystkiego innego
+	  	* na podstawie wszystkiego innego
 * przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania:
   ```sql
   SELECT * FROM `nazwa_tabeli` LIMIT 10
