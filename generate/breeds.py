@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 import random as r
 import datetime
 
+
 def random_date(start, end):
     delta = end - start
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
@@ -36,7 +37,8 @@ def dogs_regression():
     mean_low = LinearRegression().fit(x_mean, y_low)
     mean_high = LinearRegression().fit(x_mean, y_high)
 
-    return ([mean_low.intercept_, mean_low.coef_[0], mean_high.intercept_, mean_low.coef_[0], min(h_low), max(h_high)])
+    return [mean_low.intercept_, mean_low.coef_[0], mean_high.intercept_, mean_low.coef_[0], min(h_low), max(h_high)]
+
 
 def dogs(b):
     # zmienna objaśniająca to wysokość psa, więc losujemy jakąś
@@ -58,7 +60,7 @@ def dogs(b):
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('dog', gen_height, gen_weight, birthdate)
+    return 'dog', gen_height, gen_weight, birthdate
 
 
 def cats():
@@ -73,7 +75,7 @@ def cats():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('cat', height, weight, birthdate)
+    return 'cat', height, weight, birthdate
 
 
 def hamsters():
@@ -88,7 +90,7 @@ def hamsters():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('hamster', height, weight, birthdate)
+    return 'hamster', height, weight, birthdate
 
 
 def rabbits():
@@ -103,7 +105,7 @@ def rabbits():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('rabbit', height, weight, birthdate)
+    return 'rabbit', height, weight, birthdate
 
 
 def rats():
@@ -118,7 +120,7 @@ def rats():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('rat', height, weight, birthdate)
+    return 'rat', height, weight, birthdate
 
 def guinea_pigs():
     weight = r.uniform(0.7, 1.2)
@@ -132,7 +134,7 @@ def guinea_pigs():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('guinea_pig', height, weight, birthdate)
+    return 'guinea_pig', height, weight, birthdate
 
 def chinchillas():
     weight = r.uniform(0.8, 1.1)
@@ -146,7 +148,7 @@ def chinchillas():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('chinchilla', height, weight, birthdate)
+    return 'chinchilla', height, weight, birthdate
 
 def turtles():
     weight = r.uniform(0.5, 2)
@@ -160,7 +162,7 @@ def turtles():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('turtle', height, weight, birthdate)
+    return 'turtle', height, weight, birthdate
 
 def canaries():
     weight = r.uniform(0.0084, 0.023)
@@ -174,7 +176,7 @@ def canaries():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('canary', height, weight, birthdate)
+    return 'canary', height, weight, birthdate
 
 # papużki faliste xd
 def budgerigars():
@@ -189,7 +191,7 @@ def budgerigars():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('canary', height, weight, birthdate)
+    return 'canary', height, weight, birthdate
 
 def iguanas():
     weight = r.uniform(0.03, 0.04)
@@ -203,7 +205,7 @@ def iguanas():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return ('canary', height, weight, birthdate)
+    return 'canary', height, weight, birthdate
 
 
 if __name__ == "__main__":

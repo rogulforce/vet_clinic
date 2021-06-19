@@ -12,7 +12,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	* na zasadzie burzy mózgów i researchu	
 * utworzenie potrzebnego schematu za pomocą narzędzia `ERD EDITOR` - dodatku do `Visual Studio Code`
 
-![Schemat](resources/images/sample.jpg?raw=true)
+![Schemat](resources/images/schema.png?raw=true)
 
 * wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku.py`
 
@@ -23,29 +23,29 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	* zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
 	* zapisanie do `data/users_randomized.csv` przy pomocy `python pandas`
 	
-* tworzenie bazy przy użyciu `schema_creation.py`
+* tworzenie bazy przy użyciu `main.py`
 
 
-* uzupełnianie bazy przy użyciu `tables_fulfill.py`
+* uzupełnianie bazy przy użyciu `main.py` (kod znajduje się w `tables_fulfill.py`)
 	* employees
 	  * księgowa
 	  * szef
 	  * sekretarka
 	  * 2-3 weterynarzy
 	* rooms
-	  * zależnie od liczby weterynarzy
+	  * liczba weterynarzy + 2
     * equipment
-	  * trzeba wymyśleć jaki
-	  * przypisujemy do pokoju
-    * visits
-		* dodać kilka zaplanowanych
-	* meds_perscribed
-	  * na podstawie wizyty
+	  * lista, z której bierzemy informacje znajduje się w pliku `xxx`
+	
 	* meds
-	  * na pdostawie wszystkich meds_perscribed
+	  * lista, z której bierzemy informacje znajduje się w pliku `xxx`
+	* visits
+		* dod
 	* pets
 	  * na podstawie wizyty
 	* owners
+	  * na podstawie wizyty
+	* meds_perscribed
 	  * na podstawie wizyty
 	* costs
 	  * na podstawie wszystkiego innego
