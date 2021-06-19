@@ -141,7 +141,7 @@ def fill(cursor):
         # dziennie n wizyt
         # dla każdej wizyty losujemy zwierzaka
         # dodajemy wizyte, koszt, przepisane leki, weterynarza
-        n = 20
+
         visitID = 0
         cursor.execute('select salary from employees')
         salaries = [float(res[0]) for res in cursor]
@@ -152,33 +152,35 @@ def fill(cursor):
                 if (day.month != start_date.month) or (day.year != start_date.year):
                     for salary in salaries:
                         vet.cash_flow(day, -salary, 'wyplata')
-            for j in range(n):
-                visitID += 1
-                employeeID = random.randint(5, 7)
-                registation_day = day - timedelta(days=random.randint(7, 14))
-                # nie odbyla się
-                planned_date = day + timedelta(hours=9, minutes=j * 30)
-                if random.random() < 0.05:
-                    status = False
-                    real_date = None
-                    cost = 50
-                else:
-                    status = True
-                    real_date = planned_date
-                    cost = random.randint(50, 200)
-                    if random.random() < 0.1:
-                        cost += random.randint(200, 500)
-                petID = random.randint(1, num_of_pets)
-                vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
-                           planned_date=planned_date, real_date=real_date, status=status, cost=cost,
-                           number=random.randint(102, 103))
+            if day.weekday() not in [5,6]: # poza sobotą i niedzielą
+                n = random.randint(16, 24)
+                for j in range(n):
+                    visitID += 1
+                    employeeID = random.randint(5, 7)
+                    registation_day = day - timedelta(days=random.randint(7, 14))
+                    # nie odbyla się
+                    planned_date = day + timedelta(hours=9, minutes=j * 30)
+                    if random.random() < 0.05:
+                        status = False
+                        real_date = None
+                        cost = 50
+                    else:
+                        status = True
+                        real_date = planned_date
+                        cost = random.randint(50, 200)
+                        if random.random() < 0.1:
+                            cost += random.randint(200, 500)
+                    petID = random.randint(1, num_of_pets)
+                    vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
+                               planned_date=planned_date, real_date=real_date, status=status, cost=cost,
+                               number=random.randint(102, 103))
 
-                # wylosować lek i ilość
-                med_prescribed = meds.sample(random.randint(0, 3))
-                for k in range(med_prescribed.shape[0]):
-                    drugID = med_prescribed.index[k] + 1
-                    qty = random.randint(1, 3)
-                    vet.meds_prescribed(drugID=int(drugID), visitID=visitID, amount=qty)
+                    # wylosować lek i ilość
+                    med_prescribed = meds.sample(random.randint(0, 3))
+                    for k in range(med_prescribed.shape[0]):
+                        drugID = med_prescribed.index[k] + 1
+                        qty = random.randint(1, 3)
+                        vet.meds_prescribed(drugID=int(drugID), visitID=visitID, amount=qty)
 
     employee_fill()
     room_fill()
