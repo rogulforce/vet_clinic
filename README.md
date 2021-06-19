@@ -119,3 +119,16 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 ![tabela3](resources/images/cashflow2.png?raw=true)
 
 ![tabela3](resources/images/cashflow1.png?raw=true)
+
+
+# Część 3 - analiza danych (20p)
+
+_In progress..._
+
+# Część 4 - raport (10p)
+
+_In progress..._
+
+# Część 5 - dokumentacja (15p)
+
+_In progress..._
