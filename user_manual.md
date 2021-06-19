@@ -7,6 +7,7 @@
   * pandas 1.2.4
   * mariadb 1.0.6
   * numpy 1.20.3
+  * i jeszcze kilka innych, scipy, (te które wyrzucą błąd)
   
 * Connect to database
   * Host = localhost
