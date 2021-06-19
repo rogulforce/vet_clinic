@@ -49,9 +49,11 @@ def fill(cursor):
     vets_number = 3
     rooms_number = vets_number + 2
     visits_number = 20
+    owners_number = 200
     people = pd.read_csv(r'../data/users_randomized.csv').sample(1000)
     meds = pd.read_csv(r'../data/drugs.csv')
     vet = Fulfillment(cursor)
+
 
     def employee_fill():
         # Recepcjonista
@@ -92,15 +94,23 @@ def fill(cursor):
             price = np.random.randint(5, 161)
             vet.meds(str(name[0]), in_stock, ordered, discontinued, price)
 
-    def owners_fill():
-        # tutaj owner?
-        pass
-
-    def pets_fill():
-        # prawdopodobieństwo jaki zwierzak
+    def owners_and_pets_fill():
+        number_of_pets = {1: 0.7, 2: 0.15, 3: 0.075, 4: 0.05, 5: 0.025}
         probs = {'dog': 0.3, 'cat': 0.3, 'hamster': 0.05, 'rabbit': 0.05, 'rat': 0.01,
                  'guinea_pig': 0.005, 'chinchilla': 0.01, 'turtle': 0.01, 'canary': 0.01,
                  'budgerigar': 0.01, 'iguana': 0.01}
+        # tutaj owner?
+        for i in range(1): #owners_number
+            name = people.iloc[-(i+1), 0]
+            surname = people.iloc[-(i+1), 1]
+            phone = people.iloc[-(i+1), 2]
+            mail = f'{name}.{surname}@mail.com'
+            print(np.cumsum(number_of_pets.values()))
+
+
+    def pets_fill():
+        # prawdopodobieństwo jaki zwierzak
+
         pass
 
     def visits_fill():
@@ -112,5 +122,5 @@ def fill(cursor):
     equipment_fill()
     meds_fill()
     visits_fill()
-    owners_fill()
+    owners_and_pets_fill()
     pets_fill()
