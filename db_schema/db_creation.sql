@@ -28,7 +28,7 @@ CREATE TABLE `equipment`
     `eqName`      varchar(128) NULL,
     `status`      BOOL         NOT NULL,
     `room_number` int          NULL,
-    `quantity`      INT          NOT NULL
+    `quantity`    INT          NOT NULL
 );
 
 CREATE TABLE `meds`
@@ -65,7 +65,7 @@ CREATE TABLE `pets`
     `type`      VARCHAR(128),
     `birthdate` DATE,
     `weight`    DECIMAL(5, 2),
-    `height`    INT
+    `height`    float
 );
 
 CREATE TABLE `rooms`
@@ -109,3 +109,18 @@ ALTER TABLE `equipment`
     ADD FOREIGN KEY (`room_number`) REFERENCES `rooms` (`number`);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TRIGGER koszty
+    AFTER INSERT
+    ON visits
+    FOR EACH ROW
+    INSERT INTO cash_flow (date, amount, type)
+    VALUES (new.planned_date, NEW.cost, 'wizyta');
+
+SET GLOBAL event_scheduler = ON;
+
+CREATE EVENT IF NOT EXISTS wyplaty
+ON SCHEDULE EVERY 1 MONTH
+STARTS DATE("2020-01-01")
+DO
+INSERT INTO vet_clinic.cash_flow(date, amount, type) SELECT  CURDATE(), salary, 'WYPLATA' FROM employees

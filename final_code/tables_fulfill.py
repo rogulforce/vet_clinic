@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import typing
+from datetime import datetime, timedelta
+from generate import breeds
 
 
 @dataclass
@@ -39,21 +41,23 @@ class Fulfillment:
         self.cursor.execute(qr, (name, in_stock, ordered, discontinued, price))
 
     def meds_prescribed(self, drugID, visitID, amount):
-        qr = '''INSERT INTO vet_clinic.meds_prescribed (name, in_stock, ordered, discontinued, price)
-        VALUES (?, ?, ?, ?, ?)'''
+        qr = '''INSERT INTO vet_clinic.meds_prescribed (drugID, visitID, amount) VALUES (?, ?, ?)'''
         self.cursor.execute(qr, (drugID, visitID, amount))
+
+    def cash_flow(self, date, amount, atype):
+        qr = 'INSERT INTO vet_clinic.cash_flow(date, amount, type) VALUES(?, ?, ?)'
+        self.cursor.execute(qr, (date, amount, atype))
 
 
 def fill(cursor):
     # zmienić później na rand values
     vets_number = 3
-    rooms_number = vets_number + 2
-    visits_number = 20
     owners_number = 200
     people = pd.read_csv(r'../data/users_randomized.csv').sample(1000)
     meds = pd.read_csv(r'../data/drugs.csv')
     vet = Fulfillment(cursor)
-
+    start_date = datetime(2020, 1, 1)
+    end_date = datetime.today() - timedelta(days=1)
 
     def employee_fill():
         # Recepcjonista
@@ -71,18 +75,18 @@ def fill(cursor):
 
         # weterynarze int(np.random.randint(3670, 5360)))
         for i in range(vets_number):
-            vet.employees(people.iloc[i+4, 0], people.iloc[i+4, 1], people.iloc[i+4, 3],
-                          str(people.iloc[i+4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
+            vet.employees(people.iloc[i + 4, 0], people.iloc[i + 4, 1], people.iloc[i + 4, 3],
+                          str(people.iloc[i + 4, 2]), 'Weterynarz', int(np.random.randint(3670, 5360)))
 
     def room_fill():
         rooms = {1: 'recepcja', 2: 'gabinet 1', 3: 'gabinet 2', 4: 'socjal', 5: 'zaplecze', 6: 'gabinet zabiegowy'}
         for key, val in rooms.items():
-            vet.rooms(key+100, val)
+            vet.rooms(key + 100, val)
 
     def equipment_fill():
         names = pd.read_excel('../generate/meds.xlsx', names=['name'])['name']
         for name in names.values:
-            vet.equipment(str(name), True, random.randint(2, 3)+100, random.randint(0, 5))
+            vet.equipment(str(name), True, random.randint(2, 3) + 100, random.randint(0, 5))
 
     def meds_fill():
         for name in meds.values:
@@ -96,31 +100,84 @@ def fill(cursor):
 
     def owners_and_pets_fill():
         number_of_pets = {1: 0.7, 2: 0.15, 3: 0.075, 4: 0.05, 5: 0.025}
-        probs = {'dog': 0.3, 'cat': 0.3, 'hamster': 0.05, 'rabbit': 0.05, 'rat': 0.01,
-                 'guinea_pig': 0.005, 'chinchilla': 0.01, 'turtle': 0.01, 'canary': 0.01,
-                 'budgerigar': 0.01, 'iguana': 0.01}
-        # tutaj owner?
-        for i in range(1): #owners_number
-            name = people.iloc[-(i+1), 0]
-            surname = people.iloc[-(i+1), 1]
-            phone = people.iloc[-(i+1), 2]
+        number_of_pets_cum = np.array(list(number_of_pets.values())).cumsum()
+        pet_probs = {'dog': 0.4, 'cat': 0.385, 'hamster': 0.075, 'rabbit': 0.06, 'rat': 0.025,
+                     'guinea_pig': 0.005, 'chinchilla': 0.01, 'turtle': 0.01, 'canary': 0.01,
+                     'budgerigar': 0.01, 'iguana': 0.01}
+        pet_attributes = {'dog': breeds.dogs, 'cat': breeds.cats, 'hamster': breeds.hamsters,
+                          'rabbit': breeds.rabbits, 'rat': breeds.rats,
+                          'guinea_pig': breeds.guinea_pigs, 'chinchilla': breeds.chinchillas, 'turtle': breeds.turtles,
+                          'canary': breeds.canaries, 'budgerigar': breeds.budgerigars, 'iguana': breeds.iguanas}
+        pet_probs_cum = np.array(list(pet_probs.values())).cumsum()
+        pet_types = list(pet_probs.keys())
+
+        # generating owners
+        for i in range(owners_number):  # owners_number
+            name = people.iloc[-(i + 1), 0]
+            surname = people.iloc[-(i + 1), 1]
+            phone = str(people.iloc[-(i + 1), 2])
             mail = f'{name}.{surname}@mail.com'
-            print(np.cumsum(number_of_pets.values()))
-
-
-    def pets_fill():
-        # prawdopodobieństwo jaki zwierzak
-
-        pass
+            # adding owner to db
+            vet.owners(name, surname, phone, mail)
+            owner_pets = np.sum(number_of_pets_cum <= random.random()) + 1
+            # generating pets for owners
+            for pet in range(owner_pets):
+                # 0 - male, 1 - female
+                if random.random() < 0.5:
+                    sex = 'Male'
+                else:
+                    sex = 'Female'
+                #
+                pet_type = pet_types[np.sum(pet_probs_cum <= random.random())]
+                height, weight, birth_date = pet_attributes[pet_type]()
+                vet.pets(i + 1, sex, pet_type, birth_date, weight, height)
 
     def visits_fill():
-        # tutaj przy okazji meds described?
-        pass
+        # dziennie n wizyt
+        # dla każdej wizyty losujemy zwierzaka
+        # dodajemy wizyte, koszt, przepisane leki, weterynarza
+        n = 20
+        visitID = 0
+        cursor.execute('select salary from employees')
+        salaries = [float(res[0]) for res in cursor]
+        for i in range(abs((end_date - start_date).days)):
+            day = start_date + timedelta(days=i)
+            # addnig salaries to db
+            if day.day == 1:
+                if (day.month != start_date.month) or (day.year != start_date.year):
+                    for salary in salaries:
+                        vet.cash_flow(day, -salary, 'wyplata')
+            for j in range(n):
+                visitID += 1
+                employeeID = random.randint(5, 7)
+                registation_day = day - timedelta(days=random.randint(7, 14))
+                # nie odbyla się
+                planned_date = day + timedelta(hours=9, minutes=j * 30)
+                if random.random() < 0.05:
+                    status = False
+                    real_date = None
+                    cost = 50
+                else:
+                    status = True
+                    real_date = planned_date
+                    cost = random.randint(50, 200)
+                    if random.random() < 0.1:
+                        cost += random.randint(200, 500)
+                petID = random.randint(1, 200)
+                vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
+                           planned_date=planned_date, real_date=real_date, status=status, cost=cost,
+                           number=random.randint(102, 103))
+
+                # wylosować lek i ilość
+                med_prescribed = meds.sample(random.randint(0, 3))
+                for k in range(med_prescribed.shape[0]):
+                    drugID = med_prescribed.index[k] + 1
+                    qty = random.randint(1, 3)
+                    vet.meds_prescribed(drugID=int(drugID), visitID=visitID, amount=qty)
 
     employee_fill()
     room_fill()
     equipment_fill()
     meds_fill()
-    visits_fill()
     owners_and_pets_fill()
-    pets_fill()
+    visits_fill()

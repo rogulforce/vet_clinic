@@ -1,4 +1,4 @@
-from schema_creation import connection, schema_creation, execute_sql_code
+from schema_creation import connection, execute_sql_code
 from tables_fulfill import fill
 
 
@@ -6,8 +6,8 @@ def main():
     """
     there will be execution of all the other code from final_code directory
     """
-    conn = connection()
 
+    conn = connection(password='8nqw$NS54Yh7FgWU')
     # connect to Db
     # conn = connection()
     cur = conn.cursor()
@@ -18,11 +18,10 @@ def main():
     execs = a.split(';')
 
     for i, item in enumerate(execs):
-        item = item.replace('\n', '')
+        item = item.replace('\n', ' ')
         if len(item) == 0:
             pass
         else:
-            print(item)
             execute_sql_code(cur, item)
 
     # data fill

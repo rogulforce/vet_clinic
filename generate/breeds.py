@@ -14,7 +14,7 @@ def random_date(start, end):
 
 def dogs_regression():
     # tabela z rasami psów, ich wysokością i masą
-    df = pd.read_excel('dogs.xlsx')
+    df = pd.read_excel(r'../generate/dogs.xlsx')
 
     # kolumny z górną i dolną granicą wysokości dla ras
     h_low = df['height_low_m']
@@ -40,9 +40,11 @@ def dogs_regression():
     return [mean_low.intercept_, mean_low.coef_[0], mean_high.intercept_, mean_low.coef_[0], min(h_low), max(h_high)]
 
 
-def dogs(b):
+def dogs():
+    b = dogs_regression()
     # zmienna objaśniająca to wysokość psa, więc losujemy jakąś
-    gen_height = r.uniform(b[4], b[5])
+    # gen_height = r.uniform(b[4], b[5])
+    gen_height = r.gauss((b[5] + b[4])/2, (b[5] - b[4])/6)
 
     # przewidywalna masa psa o zadanej wysokości
     lower_predict = b[0] + b[1] * gen_height
@@ -60,7 +62,7 @@ def dogs(b):
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'dog', gen_height, gen_weight, birthdate
+    return gen_height*100, abs(gen_weight), birthdate
 
 
 def cats():
@@ -75,7 +77,7 @@ def cats():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'cat', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 
 def hamsters():
@@ -90,7 +92,7 @@ def hamsters():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'hamster', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 
 def rabbits():
@@ -105,7 +107,7 @@ def rabbits():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'rabbit', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 
 def rats():
@@ -120,7 +122,7 @@ def rats():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'rat', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 def guinea_pigs():
     weight = r.uniform(0.7, 1.2)
@@ -134,7 +136,7 @@ def guinea_pigs():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'guinea_pig', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 def chinchillas():
     weight = r.uniform(0.8, 1.1)
@@ -148,7 +150,7 @@ def chinchillas():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'chinchilla', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 def turtles():
     weight = r.uniform(0.5, 2)
@@ -162,7 +164,7 @@ def turtles():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'turtle', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 def canaries():
     weight = r.uniform(0.0084, 0.023)
@@ -176,7 +178,7 @@ def canaries():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'canary', height, weight, birthdate
+    return height*100, weight, birthdate
 
 # papużki faliste xd
 def budgerigars():
@@ -191,7 +193,7 @@ def budgerigars():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'canary', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 def iguanas():
     weight = r.uniform(0.03, 0.04)
@@ -205,13 +207,13 @@ def iguanas():
     birthdate = random_date(start, end)
     birthdate.strftime('%Y-%m-%d')
 
-    return 'canary', height, weight, birthdate
+    return  height*100, weight, birthdate
 
 
 if __name__ == "__main__":
     # kilka przykładowych rezultatów
     a = dogs_regression()
-    doggo_size = dogs(a)
+    doggo_size = dogs()
     print(doggo_size)
     cat_size = cats()
     print(cat_size)
