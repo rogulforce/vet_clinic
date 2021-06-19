@@ -99,6 +99,8 @@ def fill(cursor):
             vet.meds(str(name[0]), in_stock, ordered, discontinued, price)
 
     def owners_and_pets_fill():
+        all_pets = 0
+
         number_of_pets = {1: 0.7, 2: 0.15, 3: 0.075, 4: 0.05, 5: 0.025}
         number_of_pets_cum = np.array(list(number_of_pets.values())).cumsum()
         pet_probs = {'dog': 0.4, 'cat': 0.385, 'hamster': 0.075, 'rabbit': 0.06, 'rat': 0.025,
@@ -131,8 +133,11 @@ def fill(cursor):
                 pet_type = pet_types[np.sum(pet_probs_cum <= random.random())]
                 height, weight, birth_date = pet_attributes[pet_type]()
                 vet.pets(i + 1, sex, pet_type, birth_date, weight, height)
+                all_pets += 1
 
-    def visits_fill():
+        return all_pets
+
+    def visits_fill(num_of_pets):
         # dziennie n wizyt
         # dla każdej wizyty losujemy zwierzaka
         # dodajemy wizyte, koszt, przepisane leki, weterynarza
@@ -163,7 +168,7 @@ def fill(cursor):
                     cost = random.randint(50, 200)
                     if random.random() < 0.1:
                         cost += random.randint(200, 500)
-                petID = random.randint(1, 200)
+                petID = random.randint(1, num_of_pets)
                 vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
                            planned_date=planned_date, real_date=real_date, status=status, cost=cost,
                            number=random.randint(102, 103))
@@ -179,5 +184,5 @@ def fill(cursor):
     room_fill()
     equipment_fill()
     meds_fill()
-    owners_and_pets_fill()
-    visits_fill()
+    num_of_pets = owners_and_pets_fill()
+    visits_fill(num_of_pets)

@@ -1,61 +1,121 @@
-# vet_clinic
+# Autorzy
+* [Bogna Jaszczak](https://github.com/bognaj)
+* [Szymon Krząstek](https://github.com/kszonsteg)
+* [Piotr Rogula](https://github.com/rogulforce)
 
-Projekt
+# Wstęp
+Bazę tworzymy i wypełniamy skryptowo. 
+Przed przystąpieniem do dalszych części należy przejść do pliku `user_manual.md` i zrealizować zawarte w niej polecenia.
 
-Projekt zaliczeniowy składa się z 5 części. Przeczytaj całość projektu, aby wiedzieć, jaki schemat bazy będzie optymalny do rozwiązania poszczególnych zadań.
+# Część 1 - projekt i utworzenie schematu (10p)
+* analiza potrzebnych danych
+	* na zasadzie burzy mózgów i researchu	
+* utworzenie potrzebnego schematu za pomocą narzędzia `ERD EDITOR` - dodatku do `Visual Studio Code`
 
-Podczas realizacji raportu możesz pracować na lokalnej bazie danych. Jeśli chcesz pracować na serwerze do zajęć (giniewicz.it), zgłoś się po indywidualny login/hasło oraz bazę danych na projekt.
+![Schemat](resources/images/schema.png?raw=true)
 
-## Część 1 - projekt i utworzenie schematu (10p)
+* wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku.py`
 
-Zaprojektuj i zaimplementuj schemat bazy danych kliniki weterynaryjnej. Baza powinna przynajmniej posiadać informacje o:
+# Część 2 - skryptowe wypełnienie bazy (15p)
 
-* pracownikach,
-* posiadanym sprzęcie,
-* pacjentach kliniki,
-* zaplanowanych wizytach,
-* kosztach i zyskach.
+* wygenerowanie cząstkowej bazy użytkownikow Facebooka
+	* oczyszczenie bazy
+	* zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
+	* zapisanie do `data/users_randomized.csv` przy pomocy `python pandas`
 
-Schemat możesz utworzyć ręcznie (CREATE TABLE itp) albo automatycznie przez połączenie z jakimś pakietem statystycznym lub językiem programowania.
+* zapisanie typoowych leków, sprzętów itd do plików `.xlsx` i `.csv`	
+  
+* tworzenie bazy przy użyciu `main.py`
 
-## Część 2 - skryptowe wypełnienie bazy (15p)
 
-Połącz bazę danych z wybranym narzędziem (Python/R/Excel/Matlab/Mathematica/…).
+* uzupełnianie bazy przy użyciu `main.py` (kod znajduje się w `tables_fulfill.py`)
+	* employees
+		* pracownicy
+	  		* księgowa
+	  		* recepcjonistka
+	  		* szef
+	  		* 3 weterynarzy
+	 		* osoba sprzątająca
+	 	* zarobki - na podstawie strony wynagrodzenia.pl
+	 	* imiona i nazwiska na podstawie zrandomizowanych wartości z bazy użytkowników Facebooka
+	* rooms
+		* 2 gabinety weterynarzy
+	  	* gabinet zabiegowy
+	  	* recepcja
+	  	* pomieszczenie socjalne
+	  	* zaplecze
+	* equipment
+	  	
+		* lista, z której bierzemy informacje znajduje się w pliku `meds.xlsx`
+	  	
+		* wygenerowano losowo dane liczbowe
+	  	
+		* pomieszczenie na podstawie informacji o pomieszczeniach
+	* meds
+	  	
+		* lista, z której bierzemy informacje znajduje się w pliku `drugs.csv`
+		* wygenerowane losowo dane liczbowe
+	* owners
+		* losowanie z zakresu, każdemu przypisujemy od 1 do kilku zwierząt wg prawdopodobiństwa
+	
+	* pets
+	  	
+		* psy: regresja liniowa na podstawie pliku `dogs.xlsx`
+	  	
+		* waga, wzrost oraz czas życia wszystkich zwierząt na podstawie informacji dostępnych w internecie
+		* wygenerowana losowo data urodzenia
+	
+	* visits
+		* po 20 dziennie, część odwołana, wg prawdopodobieństwa
+	  	* za odwołaną wizytę płaci się opłatę manipulacyjną w wysokośći 50pln
+		
+	* meds_prescribed
+		
+		* na podstawie wizyty
+	* cash flow
+	  	
+		* na podstawie wizyt i pracowników
+		
+	  
+* przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania:
+  ```sql
+  SELECT * FROM `nazwa_tabeli` LIMIT 10
+  ```
 
-W oparciu o losowanie wygeneruj dane do tabel. Wylosowane dane powinny mieć sens. Zadbaj między innymi o to, żeby:
+* employees
 
-* imiona i nazwiska były realistycznej długości, na przykład losując pary popularnych imion i nazwisk na podstawie danych GUS,
-* daty były uporządkowane, czyli na przykład data wyleczenia nie była wcześniejsza niż data rejestracji na wizytę,
-* informacje o pacjentach miały sens, nie leczymy psów mających 300 lat i ważących 973 kilogramy, ani kotów mających 23 metry długości,
-* pensje pracowników powinny spełniać wymogi minimalnej krajowej, a jeszcze lepiej zapoznać się ze średnimi danymi znajdującymi się w Internecie,
-* zwierzęta powinny być legalne, nadające się do leczenia i nie powinny należeć do wyginiętych gatunków — nie leczy się gupików, nie przychodzi się do kliniki z tygrysem bengalskim a z mamutem nie da się przyjść, nawet gdyby były legalne.
+![tabela1](resources/images/employees.png?raw=true)
 
-Rozmiar bazy powinien być rozsądny (porównywalny z tym, co może zebrać rzeczywista klinika). Załóż, że klinika działa minimum od 3 miesięcy. Użyj wyszukiwarki a znajdziesz dużo informacji o klinikach weterynaryjnych.
+* rooms
 
-## Część 3 - analiza danych (20p)
+![tabela2](resources/images/rooms.png?raw=true)
 
-Połącz bazę danych z wybranym narzędziem (może być inne niż w poprzedniej części!).
+* equipment
 
-* Przygotuj wykres przedstawiający liczbę wizyt każdego dnia.
-* Przygotuj wykres przedstawiający bilans zysków i strat kliniki.
-* Stwórz listę zwierzaków najdłużej czekających na wizytę.
-* Postaw i odpowiedz analizą na minimum cztery dodatkowe pytania.
+![tabela3](resources/images/equipment.png?raw=true)
 
-## Część 4 - raport (10p)
+* meds
 
-Połącz bazę danych z wybranym narzędziem (może być inne niż w poprzedniej części!). Jeśli wykonujesz zadanie w tym samym narzędziu (na przykład KnitR), raport może od razu wykonywać analizę z części 3.
+![tabela3](resources/images/meds.png?raw=true)
 
-Przedstaw wykonaną analizę w formie raportu PDF lub HTML — całość procedury powinna dać się zautomatyzować, za pomocą wykorzystanego narzędzia lub jakiegoś skryptu uruchamiającego różne narzędzia w konkretnej kolejności.
+* owners
 
-## Część 5 - dokumentacja (15p)
+![tabela3](resources/images/owners.png?raw=true)
 
-Do projektu dołącz dokumentację a w niej:
+* pets
 
-* spis użytych technologii,
-* listę plików i ich zawartości,
-* kolejność i sposób uruchamiania plików, aby uzyskać gotowy projekt,
-* schemat projektu bazy danych,
-* dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem,
-* uzasadnienie, że baza jest w EKNF,
-* opis, co było najtrudniejsze podczas realizacji projektu.
+![tabela3](resources/images/pets.png?raw=true)
 
+* visits
+
+![tabela3](resources/images/visits.png?raw=true)
+
+* meds prescribed
+
+![tabela3](resources/images/meds_perscribed.png?raw=true)
+
+* cash flow
+
+![tabela3](resources/images/cashflow2.png?raw=true)
+
+![tabela3](resources/images/cashflow1.png?raw=true)
