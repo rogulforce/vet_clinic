@@ -1,3 +1,8 @@
+# Autorzy
+* [Bogna Jaszczak](https://github.com/bognaj)
+* [Szymon Krząstek](https://github.com/kszonsteg)
+* [Piotr Rogula](https://github.com/rogulforce)
+
 # Wstęp
 Bazę tworzymy i wypełniamy skryptowo. 
 Przed przystąpieniem do dalszych części należy przejść do pliku `user_manual.md` i zrealizować zawarte w niej polecenia.
@@ -7,7 +12,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	* na zasadzie burzy mózgów i researchu	
 * utworzenie potrzebnego schematu za pomocą narzędzia `ERD EDITOR` - dodatku do `Visual Studio Code`
 
-**WSTAWIĆ TUTAJ ZDJĘCIE SCHEMATU**
+![Schemat](resources/images/sample.jpg?raw=true)
 
 * wygenerowanie potrzebnych tabel przu użyciu `nazwa_pliku.py`
 
@@ -21,7 +26,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 * tworzenie bazy przy użyciu `schema_creation.py`
 
 
-* uzupełnianie bazy
+* uzupełnianie bazy przy użyciu `tables_fulfill.py`
 	* employees
 	  * księgowa
 	  * szef
@@ -46,6 +51,8 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	  * na podstawie wszystkiego innego
 * przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania:
   ```sql
-  SELECT * FROM nazwa_tabeli LIMIT 10
+  SELECT * FROM `nazwa_tabeli` LIMIT 10
   ```
-  WSTAWIĆ TUTAJ SCREENY WYNIKÓW
+![tabela1](resources/images/sample.jpg?raw=true)
+![tabela2](resources/images/sample.jpg?raw=true)
+![tabela3](resources/images/sample.jpg?raw=true)
