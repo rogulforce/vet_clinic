@@ -151,10 +151,8 @@ def fill(cursor):
         for pet in range(1, num_of_pets + 1):
             pet_to_vet[pet] = random.randint(5, 7)
 
-
         # cash flow
         wynajem = (-1) * random.randint(5000, 10000)
-        media = (-1) * random.randint(200, 500)
         for i in range(abs((end_date - start_date).days)):
             day = start_date + timedelta(days=i)
             # addnig salaries to db
@@ -163,7 +161,14 @@ def fill(cursor):
                     for salary in salaries:
                         vet.cash_flow(day, -salary, 'wyplata')
                     vet.cash_flow(day, wynajem, 'wynajem')
+                    media = (-1) * random.randint(200, 500)
                     vet.cash_flow(day, media, 'media')
+                    # stała opłata za leki itp.
+                    lis = -random.randint(1000, 2000)
+                    # coś większego się zepsuje
+                    if random.random() < 0.05:
+                        lis -= random.randint(2000, 10000)
+                    vet.cash_flow(day, lis, 'leki i sprzęt')
             if day.weekday() not in [5, 6]: # poza sobotą i niedzielą
                 n = random.randint(16, 24)
                 for j in range(n):

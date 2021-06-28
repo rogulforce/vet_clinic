@@ -1,5 +1,6 @@
 from schema_creation import connection, execute_sql_code
 from tables_fulfill import fill
+import os
 
 
 def main():
@@ -7,7 +8,7 @@ def main():
     there will be execution of all the other code from final_code directory
     """
 
-    conn = connection(password='admin')
+    conn = connection(password='8nqw$NS54Yh7FgWU')
     # connect to Db
     # conn = connection()
     cur = conn.cursor()
@@ -31,6 +32,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    os.system('jupyter nbconvert --to html analysis.ipynb')
     # with open('../db_schema/db_creation.sql') as file:
     #     a = file.read()
     # execs = a.split(';')
