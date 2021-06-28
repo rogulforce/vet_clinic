@@ -145,6 +145,12 @@ def fill(cursor):
         visitID = 0
         cursor.execute('select salary from employees')
         salaries = [float(res[0]) for res in cursor]
+
+        pet_to_vet = {}
+        # przypisanie lekarza prowadzacego
+        for pet in range(1, num_of_pets + 1):
+            pet_to_vet[pet] = random.randint(5, 7)
+
         for i in range(abs((end_date - start_date).days)):
             day = start_date + timedelta(days=i)
             # addnig salaries to db
@@ -152,11 +158,12 @@ def fill(cursor):
                 if (day.month != start_date.month) or (day.year != start_date.year):
                     for salary in salaries:
                         vet.cash_flow(day, -salary, 'wyplata')
-            if day.weekday() not in [5,6]: # poza sobotą i niedzielą
+            if day.weekday() not in [5, 6]: # poza sobotą i niedzielą
                 n = random.randint(16, 24)
                 for j in range(n):
                     visitID += 1
-                    employeeID = random.randint(5, 7)
+                    petID = random.randint(1, num_of_pets)
+                    employeeID = pet_to_vet[petID]
                     registation_day = day - timedelta(days=random.randint(7, 14))
                     # nie odbyla się
                     planned_date = day + timedelta(hours=9, minutes=j * 30)
@@ -170,7 +177,7 @@ def fill(cursor):
                         cost = random.randint(50, 200)
                         if random.random() < 0.1:
                             cost += random.randint(200, 500)
-                    petID = random.randint(1, num_of_pets)
+
                     vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
                                planned_date=planned_date, real_date=real_date, status=status, cost=cost,
                                number=random.randint(102, 103))

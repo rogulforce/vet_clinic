@@ -68,6 +68,8 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	* visits
 		* po 20 dziennie, część odwołana, wg prawdopodobieństwa
 	  	* za odwołaną wizytę płaci się opłatę manipulacyjną w wysokośći 50pln
+	
+		* **przypisanie zwierzęcia do lekarza prowadzącego**
 		
 	* meds_prescribed
 		
