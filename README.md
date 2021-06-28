@@ -125,7 +125,13 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 # Część 3 - analiza danych (20p)
 
-_In progress..._
+* wykres przedstawiający liczbę wizyt każdego dnia.
+* wykres przedstawiający bilans zysków i strat kliniki.
+* lista zwierzaków najdłużej czekających na wizytę.
+* rozkład wagi zwierząt
+* zarobki lekarzy w stosunku do liczby wizyt
+* najczęściej przypisywane leki
+* procentowy podział strat
 
 # Część 4 - raport (10p)
 

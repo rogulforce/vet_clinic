@@ -45,6 +45,8 @@ def dogs():
     # zmienna objaśniająca to wysokość psa, więc losujemy jakąś
     # gen_height = r.uniform(b[4], b[5])
     gen_height = r.gauss((b[5] + b[4])/2, (b[5] - b[4])/6)
+    while gen_height <= 0:
+        gen_height = r.gauss((b[5] + b[4])/2, (b[5] - b[4])/6)
 
     # przewidywalna masa psa o zadanej wysokości
     lower_predict = b[0] + b[1] * gen_height
