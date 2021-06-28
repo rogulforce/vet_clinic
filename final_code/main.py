@@ -7,7 +7,7 @@ def main():
     there will be execution of all the other code from final_code directory
     """
 
-    conn = connection(password='8nqw$NS54Yh7FgWU')
+    conn = connection(password='admin')
     # connect to Db
     # conn = connection()
     cur = conn.cursor()
