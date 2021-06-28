@@ -135,8 +135,17 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 # Część 4 - raport (10p)
 
-_In progress..._
 
 # Część 5 - dokumentacja (15p)
 
-_In progress..._
+* spis użytych technologii
+  * znajduje się w `user_manual.md`
+* lista plików i ich zawartości
+* kolejność i sposób uruchamiania plików, aby uzyskać gotowy projekt
+  * znajduje się w `user_manual.md`
+* schemat projektu bazy danych
+  * znajduje się w na początku `README.md`
+* dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem
+* uzasadnienie, że baza jest w EKNF
+  
+* opis, co było najtrudniejsze podczas realizacji projektu

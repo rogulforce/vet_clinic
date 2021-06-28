@@ -8,7 +8,7 @@ def main():
     there will be execution of all the other code from final_code directory
     """
 
-    conn = connection(password='8nqw$NS54Yh7FgWU')
+    conn = connection(password='admin')
     # connect to Db
     # conn = connection()
     cur = conn.cursor()
@@ -32,7 +32,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-    os.system('jupyter nbconvert --to html analysis.ipynb')
+    os.system(r'jupyter nbconvert --to html analysis.ipynb')
     # with open('../db_schema/db_creation.sql') as file:
     #     a = file.read()
     # execs = a.split(';')
