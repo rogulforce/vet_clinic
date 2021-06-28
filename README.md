@@ -135,17 +135,68 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 # Część 4 - raport (10p)
 
+Po wypełnieniu poleceń z `user_manual.md` powinien pojawić się plik `final_code/analysis.html`.
+
+Plik ten zawiera automatycznie wygenerowaną html-ową wersje raportu `final_code/analysis.ipynb`.
 
 # Część 5 - dokumentacja (15p)
 
 * spis użytych technologii
   * znajduje się w `user_manual.md`
+
+
 * lista plików i ich zawartości
+  * data
+	* `dogs.xlsx` -> informacje o psach
+	* `drugs.csv` ->  informacje o lekach
+	* `users_randomized` -> zrandomizowana baza danych osobowych
+  * db_schema
+	* `db_creation.sql` -> kod tworzacy bazę danych
+	* `schema.vuerd.json` -> schemat bazy danych
+  * final_code
+	* `analysis.ipynb` -> notebook z analizą z `#3`
+	* `analysis.html` -> notebook z analizą z `#3` w formie `.html`
+	* `main.py` -> skypt generujący i wypełniający bazę
+	* `raport.py` -> plik generujący raport 
+	* `schema_creaction.py` -> plik zawierający funkcje potrzebne do połączenia z bazą
+	* `tables_fulfill.py` -> plik zawierający funkcje potrzebne do wypełnienia bazy
+  * generate
+	* pliki z różnymi danymi dotyczącymi klinik weterynaryjnych
+		* zarobki, zwierzęta, proste regresji, medykamenty, itd.
+  * resources
+	* notebooki do czyszczenia danych, wersje testowe, obrazki do `README.md`, itd.
+
+
 * kolejność i sposób uruchamiania plików, aby uzyskać gotowy projekt
   * znajduje się w `user_manual.md`
+	
+
 * schemat projektu bazy danych
-  * znajduje się w na początku `README.md`
-* dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem
-* uzasadnienie, że baza jest w EKNF
   
+  * znajduje się w na początku `README.md`
+	
+
+* dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem
+  * meds / drugID - meds_prescribed / drugID
+	* połączenie przypisanego leku z bazą leków
+  * meds_prescribed / visitID - visits / visitID
+	* połączenie przypisanego leku z wizytą
+  * employees / employeeID - visits / employeeID
+	* połączenie pracownika z wizytą
+	
+  * pets / petID - visits / petID
+	* połączenie zwirzaka z wizytą
+  * pets / ownerID - owners / ownerID
+	* połączenie zwierzaka z właścicielem
+	
+  * visits / number - rooms / number
+	* połączenie wizyty z pokojem
+	
+  * equipment / number - rooms / number
+	* połączenie pokoju ze sprzętem 
+	
+* uzasadnienie, że baza jest w EKNF
+  * BRAK PÓKI CO (?)
 * opis, co było najtrudniejsze podczas realizacji projektu
+	* uzasadnienie, że baza jest w EKNF
+	* wyeliminowanie problemów technicznych związanych z generowaniem skryptowym i wypełnianiem bazy

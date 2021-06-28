@@ -91,5 +91,7 @@
 
 * run `main.py`
 
-* run `SKRYPT ROBIĄCY analzie`
+* run `analysis.ipynb` and save it
+
+* run `raport.py`
 
