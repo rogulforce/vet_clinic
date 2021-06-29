@@ -1,44 +1,17 @@
 import plotly.graph_objects as go
 from plotly.offline import plot
-import mariadb
-import sys
 import pandas as pd
 import numpy as np
 import os
-try:
-    os.mkdir('report')
-except:
-    pass
+from schema_creation import connection
 
-def connection(user: str = "root", password: str = "admin",
-               host: str = "localhost", port: int = 3306, **kwargs):
-    """ Connection function
 
-    Args:
-        user (str): Defaults to 'root'
-        password (str): Defaults to 'admin'
-        host (str): Defaults to 'localhost'
-        port (int): Defaults to 3306
-        **kwargs (str): database=, if you want to connect to exact database.
+def make_report():
 
-    Returns (mariadb.connect()): current connection
-    """
     try:
-        conn = mariadb.connect(
-            user=user,
-            password=password,
-            host=host,
-            port=port,
-            **kwargs
-        )
-        print(f'connected to @{host} on port {port}')
-
-    except mariadb.Error as e:
-        print(f"Error connecting to MariaDB Platform: {e}")
-        sys.exit(1)
-    return conn
-
-if __name__ == '__main__':
+        os.mkdir('report')
+    except OSError:
+        print('report already exists')
 
     conn = connection(password='8nqw$NS54Yh7FgWU', database="vet_clinic")
     cur = conn.cursor()
@@ -79,7 +52,7 @@ select month_, loses, 'loses' from t2;''')
         amount.append(am)
         p_or_l.append(pl)
 
-    df = pd.DataFrame(data={'amount': amount, 'profit_or_lose':p_or_l, 'months':months})
+    df = pd.DataFrame(data={'amount': amount, 'profit_or_lose': p_or_l, 'months': months})
     data = [go.Bar(x=group['months'], y=group['amount'], name=porl) for porl, group in df.groupby('profit_or_lose')]
 
     cur.execute("""select concat(year(date),'-', month(date)) as month_, sum(amount) from cash_flow
@@ -103,8 +76,8 @@ select month_, loses, 'loses' from t2;''')
     records = cur.fetchall()
     petid = [record[0] for record in records]
     wait_time = [record[1] for record in records]
-    df = pd.DataFrame(data={'petID': petid, 'wait_time (hours)':wait_time})
-    first_df_html = df.to_html().replace('<table border="1" class="dataframe">','<table class="table table-striped">')
+    df = pd.DataFrame(data={'petID': petid, 'wait_time (hours)': wait_time})
+    first_df_html = df.to_html().replace('<table border="1" class="dataframe">', '<table class="table table-striped">')
 
     # pytanie czwarte
     cur.execute('''select weight from pets;
@@ -113,11 +86,50 @@ select month_, loses, 'loses' from t2;''')
     records = cur.fetchall()
     data = [float(record[0]) for record in records]
     n = len(data)
-    Cumsum = np.cumsum(np.ones((1,n))/n)
-    data=[go.Scatter(x=sorted(data), y=Cumsum)]
+    Cumsum = np.cumsum(np.ones((1, n)) / n)
+    data = [go.Scatter(x=sorted(data), y=Cumsum)]
     graph3 = os.path.join('report', 'graph3.html')
     plot(data, auto_open=False, filename=graph3)
 
+    # pytanie piąte
+    cur.execute('''select salary, employeeID from employees where position = 'Weterynarz';
+    ''')
+
+    records1 = cur.fetchall()
+
+    cur.execute('''select employeeID, sum(cost) from visits where real_date is not null
+    group by employeeID, year(real_date), month(real_date) ;
+    ''')
+    records2 = cur.fetchall()
+    records2 = [(item[0], int(item[1])) for item in records2]
+    df = pd.DataFrame(data={'vet': [item[0] for item in records2], 'sum': [item[1] for item in records2]})
+    df = df.groupby('vet').agg(np.mean).reset_index()
+    df['sum'] = df['sum'] / [int(it[0]) for it in records1]
+    data = [go.Bar(x=df['vet'], y=df['sum'])]
+    graph4 = os.path.join('report', 'graph4.html')
+    plot(data, auto_open=False, filename=graph4)
+
+    # pytanie 6
+    cur.execute('''select drugID, sum(amount), name from meds_prescribed left join meds using (drugID)
+    group by drugID order by sum(amount) desc limit 20 ;
+    ''')
+    records = cur.fetchall()
+
+    df = pd.DataFrame(data={'id': [it[0] for it in records], 'name': [it[2] for it in records],
+                            'total quantity': [it[1] for it in records]})
+
+    second_df_html = df.to_html().replace('<table border="1" class="dataframe">', '<table class="table table-striped">')
+
+    # pytanie 7
+    cur.execute('''select avg(x), type from (select sum(amount) as 'x', type from cash_flow where amount < 0 group by type, year(date), month(date)) as zzz group by type;
+    ''')
+
+    records = cur.fetchall()
+    labels = [it[1] for it in records]
+    values = [round(int(-1 * it[0]), 2) for it in records]
+    data = [go.Pie(labels=labels, values=values)]
+    graph5 = os.path.join('report', 'graph5.html')
+    plot(data, auto_open=False, filename=graph5)
     html_string = """
     <html>
     <head>
@@ -130,15 +142,22 @@ select month_, loses, 'loses' from t2;''')
             <!-- *** Section 1 *** --->
             <h2>Liczba wizyt w poszczególnych miesiącach</h2>
             <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src="""+graph1+"""></iframe>
+    src=""" + graph1 + """></iframe>
 
         <h2>Bilans zysków i strat</h2>
             <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src="""+graph2+"""></iframe>
-    <h2>Najdłużej czeka </h2>"""+first_df_html+"""
+    src=""" + graph2 + """></iframe>
+    <h2>Najdłużej czeka </h2>""" + first_df_html + """
     <h2>Rozkład masy zwierzaków </h2>
     <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src="""+graph3+"""></iframe>
+    src=""" + graph3 + """></iframe>
+    <h2>zarobki lekarzy w stosunku do przychodów z wizyt </h2>
+    <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
+    src=""" + graph4 + """></iframe>
+    <h2>Najdłużej czeka </h2>""" + second_df_html + """
+    <h2>Procentowy podział strat </h2>
+    <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
+    src=""" + graph5 + """></iframe>
         </body>
     </html>"""
 
