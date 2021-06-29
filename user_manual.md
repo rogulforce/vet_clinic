@@ -79,7 +79,8 @@
   * webencodings        0.5.1
   * widgetsnbextension  3.5.1
   * xlrd                2.0.1
-  
+  * plotly			  5.1.0
+  * tenacity			  6.2.0
 
 * Connect to database
   * Host = localhost

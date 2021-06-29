@@ -22,11 +22,11 @@ class Fulfillment:
         qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, quantity) VALUES (?, ?, ?, ?)'
         self.cursor.execute(qr, (eqName, status, room_number, quantity))
 
-    def visits(self, petID, employeeID, registration_date, planned_date, real_date, status, cost, number):
+    def visits(self, petID, employeeID, registration_date, planned_date, real_date, cost, number):
         qr = '''INSERT INTO vet_clinic.visits
-        (petID, employeeID, registration_date, planned_date, real_date, status, cost, number) 
+        (petID, employeeID, registration_date, planned_date, real_date, cost, number) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-        self.cursor.execute(qr, (petID, employeeID, registration_date, planned_date, real_date, status, cost, number))
+        self.cursor.execute(qr, (petID, employeeID, registration_date, planned_date, real_date, cost, number))
 
     def pets(self, ownerID, sex, atype, birthdate, weight, height):
         qr = 'INSERT INTO vet_clinic.pets (ownerID, sex, type, birthdate, weight, height) VALUES (?, ?, ?, ?, ?, ?)'
@@ -53,8 +53,8 @@ def fill(cursor):
     # zmienić później na rand values
     vets_number = 3
     owners_number = 200
-    people = pd.read_csv(r'../data/users_randomized.csv').sample(1000)
-    meds = pd.read_csv(r'../data/drugs.csv')
+    people = pd.read_csv(r'data/users_randomized.csv').sample(1000)
+    meds = pd.read_csv(r'data/drugs.csv')
     vet = Fulfillment(cursor)
     start_date = datetime(2020, 1, 1)
     end_date = datetime.today() - timedelta(days=1)
@@ -84,7 +84,7 @@ def fill(cursor):
             vet.rooms(key + 100, val)
 
     def equipment_fill():
-        names = pd.read_excel('../generate/meds.xlsx', names=['name'])['name']
+        names = pd.read_excel('generate/meds.xlsx', names=['name'])['name']
         for name in names.values:
             vet.equipment(str(name), True, random.randint(2, 3) + 100, random.randint(0, 5))
 
@@ -179,18 +179,18 @@ def fill(cursor):
                     # nie odbyla się
                     planned_date = day + timedelta(hours=9, minutes=j * 30)
                     if random.random() < 0.05:
-                        status = False
+                        # status = False
                         real_date = None
                         cost = 50
                     else:
-                        status = True
+                        # status = True
                         real_date = planned_date
                         cost = random.randint(50, 200)
                         if random.random() < 0.1:
                             cost += random.randint(200, 500)
 
                     vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
-                               planned_date=planned_date, real_date=real_date, status=status, cost=cost,
+                               planned_date=planned_date, real_date=real_date, cost=cost,
                                number=random.randint(102, 103))
 
                     # wylosować lek i ilość
