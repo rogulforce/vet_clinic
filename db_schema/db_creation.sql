@@ -35,10 +35,10 @@ CREATE TABLE `meds`
 (
     `drugID`       INT UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `name`         VARCHAR(128),
-    `in_stock`     float                  NULL,
-    `ordered`      float                  NULL,
+    `in_stock`     int                  NULL,
+    `ordered`      int                  NULL,
     `discontinued` BOOL                   NOT NULL,
-    `price`        float                  NULL
+    `price`        decimal(8, 2)                  NULL
 );
 
 CREATE TABLE `meds_prescribed`
@@ -65,7 +65,7 @@ CREATE TABLE `pets`
     `type`      VARCHAR(128),
     `birthdate` DATE,
     `weight`    DECIMAL(5, 2),
-    `height`    float
+    `height`    DECIMAL(10, 3)
 );
 
 CREATE TABLE `rooms`
@@ -82,7 +82,6 @@ CREATE TABLE `visits`
     `registration_date` DATETIME               NOT NULL,
     `planned_date`      DATETIME               NOT NULL,
     `real_date`         DATETIME,
-    `status`            BOOL                   NOT NULL,
     `cost`              DECIMAL(8, 2)          NOT NULL,
     `number`            INT                    NOT NULL
 );
