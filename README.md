@@ -223,7 +223,7 @@ czyli raport.
   	
 * uzasadnienie, że baza jest w EKNF
   * jak wykazaliśmy w poprzednim podpunkcie, każda nietrywialna zależność funkcyjna albo zaczyna się od nadklucza albo kończy się na
-atrybucie elementarnym. oznacza to, że baza jest w EKNF. 
+atrybucie elementarnym. Oznacza to, że baza jest w EKNF. 
 * opis, co było najtrudniejsze podczas realizacji projektu
 	* uzasadnienie, że baza jest w EKNF
 	* wyeliminowanie problemów technicznych związanych z generowaniem skryptowym i wypełnianiem bazy
