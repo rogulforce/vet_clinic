@@ -14,7 +14,7 @@ def random_date(start, end):
 
 def dogs_regression():
     # tabela z rasami psów, ich wysokością i masą
-    df = pd.read_excel(r'../generate/dogs.xlsx')
+    df = pd.read_excel(r'generate/dogs.xlsx')
 
     # kolumny z górną i dolną granicą wysokości dla ras
     h_low = df['height_low_m']

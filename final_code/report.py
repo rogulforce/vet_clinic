@@ -3,7 +3,7 @@ from plotly.offline import plot
 import pandas as pd
 import numpy as np
 import os
-from schema_creation import connection
+from final_code.schema_creation import connection
 
 
 def make_report(cur):
