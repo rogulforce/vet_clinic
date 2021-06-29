@@ -6,15 +6,12 @@ import os
 from schema_creation import connection
 
 
-def make_report():
+def make_report(cur):
 
     try:
         os.mkdir('report')
     except OSError:
-        print('report already exists')
-
-    conn = connection(password='8nqw$NS54Yh7FgWU', database="vet_clinic")
-    cur = conn.cursor()
+        print('direction report already exists')
 
     # pierwszwe pytanie
     cur.execute('''select date(real_date), count(*) from visits where real_date is not null
@@ -29,8 +26,10 @@ group by year(real_date), month(real_date), day(real_date);
         novs.append(nov)
 
     data = [go.Scatter(x=dates[:100], y=novs[:100])]
+    layout = go.Layout(xaxis=dict(title='Data'), yaxis=dict(title='Liczba wizyt'))
     graph1 = os.path.join('report', 'graph1.html')
-    plot(data, auto_open=False, filename=graph1)
+    fig = go.Figure(data, layout)
+    plot(fig, auto_open=False, filename=graph1)
 
     # drugie pytanie
     cur.execute('''with t1 as (
@@ -39,9 +38,9 @@ group by year(real_date), month(real_date), day(real_date);
 t2 as (
     select concat(year(date),'-', month(date)) as month_, sum(amount) as loses
     from cash_flow where amount < 0 group by year(date), month(date))
-select month_, profits, 'profit' from t1
+select month_, profits, 'zysk' from t1
 union all
-select month_, loses, 'loses' from t2;''')
+select month_, loses, 'strata' from t2;''')
 
     records = cur.fetchall()
     months = []
@@ -65,13 +64,15 @@ select month_, loses, 'loses' from t2;''')
         months.append(date)
         diff.append(d)
 
-    data.append(go.Scatter(x=months, y=diff, name='profit-lose'))
+    data.append(go.Scatter(x=months, y=diff, name='zysk-strata'))
     graph2 = os.path.join('report', 'graph2.html')
-    plot(data, auto_open=False, filename=graph2)
+    layout = go.Layout(xaxis=dict(title='Data'), yaxis=dict(title='Zysk/Strata'))
+    fig = go.Figure(data, layout)
+    plot(fig, auto_open=False, filename=graph2)
 
     # trzecie pytanie
     cur.execute("""select petID, max(timestampdiff(hour,registration_date, planned_date)) as `max_wait`
-                from visits group by petID order by `max_wait` DESC limit 20;""")
+                from visits group by petID order by `max_wait` DESC limit 10;""")
 
     records = cur.fetchall()
     petid = [record[0] for record in records]
@@ -89,7 +90,9 @@ select month_, loses, 'loses' from t2;''')
     Cumsum = np.cumsum(np.ones((1, n)) / n)
     data = [go.Scatter(x=sorted(data), y=Cumsum)]
     graph3 = os.path.join('report', 'graph3.html')
-    plot(data, auto_open=False, filename=graph3)
+    layout = go.Layout(xaxis=dict(title='Waga'), yaxis=dict(title='Dystrybuanta'))
+    fig = go.Figure(data, layout)
+    plot(fig, auto_open=False, filename=graph3)
 
     # pytanie piąte
     cur.execute('''select salary, employeeID from employees where position = 'Weterynarz';
@@ -107,11 +110,15 @@ select month_, loses, 'loses' from t2;''')
     df['sum'] = df['sum'] / [int(it[0]) for it in records1]
     data = [go.Bar(x=df['vet'], y=df['sum'])]
     graph4 = os.path.join('report', 'graph4.html')
-    plot(data, auto_open=False, filename=graph4)
+    layout = go.Layout(xaxis=dict(title='ID pracownika'),
+                       yaxis=dict(title='zarobki lekarzy w stosunku\n do przychodów z wizyt'))
+    fig = go.Figure(data, layout)
+    fig.update_xaxes(tickvals=[5, 6, 7])
+    plot(fig, auto_open=False, filename=graph4)
 
     # pytanie 6
     cur.execute('''select drugID, sum(amount), name from meds_prescribed left join meds using (drugID)
-    group by drugID order by sum(amount) desc limit 20 ;
+    group by drugID order by sum(amount) desc limit 10 ;
     ''')
     records = cur.fetchall()
 
@@ -130,36 +137,61 @@ select month_, loses, 'loses' from t2;''')
     data = [go.Pie(labels=labels, values=values)]
     graph5 = os.path.join('report', 'graph5.html')
     plot(data, auto_open=False, filename=graph5)
-    html_string = """
-    <html>
-    <head>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-            <style>body{ margin:0 100; background:whitesmoke; }</style>
-        </head>
-        <body>
-            <h1>Analiza kliniki weterynaryjnej</h1>
-
-            <!-- *** Section 1 *** --->
-            <h2>Liczba wizyt w poszczególnych miesiącach</h2>
-            <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src=""" + graph1 + """></iframe>
-
+    html_string = """<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Raport kliniki weterynatyjnej</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+    body{
+        margin:0;
+        background:whitesmoke;
+    }
+    iframe{
+      border: hidden;
+    }
+    .content{
+        background-color: white;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 1020px;
+    }</style>
+</head>
+<body>
+    <div class="content">
+        <h1>Analiza kliniki weterynaryjnej</h1>
+        
+        <!-- *** Section 1 *** --->
+        <h2>Liczba wizyt w poszczególnych miesiącach</h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=""" + graph1 + """></iframe>
+        
+        <!-- *** Section 2 *** --->
         <h2>Bilans zysków i strat</h2>
-            <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src=""" + graph2 + """></iframe>
-    <h2>Najdłużej czeka </h2>""" + first_df_html + """
-    <h2>Rozkład masy zwierzaków </h2>
-    <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src=""" + graph3 + """></iframe>
-    <h2>zarobki lekarzy w stosunku do przychodów z wizyt </h2>
-    <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src=""" + graph4 + """></iframe>
-    <h2>Najdłużej czeka </h2>""" + second_df_html + """
-    <h2>Procentowy podział strat </h2>
-    <iframe width="1000" height="550" frameborder="0" seamless="seamless" scrolling="no" \
-    src=""" + graph5 + """></iframe>
-        </body>
-    </html>"""
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=""" + graph2 + """></iframe>
+        
+        <!-- *** Section 3 *** --->
+        <h2>Najdłużej czekający pacięci</h2>""" + first_df_html + """
+        
+        <!-- *** Section 3 *** --->
+        <h2>Rozkład masy zwierzaków </h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=""" + graph3 + """></iframe>
+        
+        <!-- *** Section 4 *** --->
+        <h2>zarobki lekarzy w stosunku do przychodów z wizyt </h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=""" + graph4 + """></iframe>
+        
+        <!-- *** Section 5 *** --->
+        <h2>Najczęściej przepisywane leki </h2>""" + second_df_html + """
+        
+        <!-- *** Section 6 *** --->
+        <h2>Procentowy podział kosztów</h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=""" + graph5 + """></iframe>
+    </div>
+</body>
+</html>"""
 
-    with open('analiza.html', 'w') as f:
+    with open('analiza.html', 'w', encoding="utf-8") as f:
         f.write(html_string)

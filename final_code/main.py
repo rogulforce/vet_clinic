@@ -2,6 +2,7 @@ from schema_creation import connection, execute_sql_code
 from tables_fulfill import fill
 from report import make_report
 
+
 def main():
     """
     there will be execution of all the other code from final_code directory
@@ -27,14 +28,8 @@ def main():
     # data fill
     fill(cur)
     conn.commit()
+    make_report(cur)
 
 
 if __name__ == "__main__":
     main()
-    make_report()
-    # with open('../db_schema/db_creation.sql') as file:
-    #     a = file.read()
-    # execs = a.split(';')
-    # for i, item in enumerate(execs):
-    #     execs[i] = item.replace('\n', '')
-    #     print(execs[i])

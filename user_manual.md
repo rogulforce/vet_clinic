@@ -90,8 +90,3 @@
     * as it is a local server ☼
 
 * run `main.py`
-
-* run `analysis.ipynb` and save it
-
-* run `raport.py`
-

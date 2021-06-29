@@ -135,9 +135,8 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 # Część 4 - raport (10p)
 
-Po wypełnieniu poleceń z `user_manual.md` powinien pojawić się plik `final_code/analysis.html`.
-
-Plik ten zawiera automatycznie wygenerowaną html-ową wersje raportu `final_code/analysis.ipynb`.
+Po wypełnieniu poleceń z `user_manual.md` powinien pojawić się plik `final_code/analiza.html`,
+czyli raport.
 
 # Część 5 - dokumentacja (15p)
 
@@ -154,12 +153,11 @@ Plik ten zawiera automatycznie wygenerowaną html-ową wersje raportu `final_cod
 	* `db_creation.sql` -> kod tworzacy bazę danych
 	* `schema.vuerd.json` -> schemat bazy danych
   * final_code
-	* `analysis.ipynb` -> notebook z analizą z `#3`
-	* `analysis.html` -> notebook z analizą z `#3` w formie `.html`
-	* `main.py` -> skypt generujący i wypełniający bazę
-	* `raport.py` -> plik generujący raport 
+	* `analiza.html` -> notebook z analizą z `#3` i `#4` w formie `.html`
+	* `main.py` -> skypt generujący i wypełniający bazę oraz tworzący raport
 	* `schema_creaction.py` -> plik zawierający funkcje potrzebne do połączenia z bazą
 	* `tables_fulfill.py` -> plik zawierający funkcje potrzebne do wypełnienia bazy
+	* `report` -> folder zawierający wykresy do raportu  
   * generate
 	* pliki z różnymi danymi dotyczącymi klinik weterynaryjnych
 		* zarobki, zwierzęta, proste regresji, medykamenty, itd.

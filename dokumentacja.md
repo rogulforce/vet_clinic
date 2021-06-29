@@ -50,6 +50,7 @@
     * pickleshare         0.7.5
     * Pillow              8.2.0
     * pip                 21.1.3
+    * plotly              4.14.3
     * prometheus-client   0.10.1
     * prompt-toolkit      3.0.18
     * pycparser           2.20
