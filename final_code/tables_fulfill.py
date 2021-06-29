@@ -15,18 +15,18 @@ class Fulfillment:
         qr = 'INSERT INTO vet_clinic.employees (name, surname, sex, phone, position, salary) VALUES (?, ?, ?, ?, ?, ?)'
         self.cursor.execute(qr, (name, surname, sex, phone, position, salary))
 
-    def rooms(self, number, name):
-        self.cursor.execute('INSERT INTO vet_clinic.rooms (number, name) VALUES (?, ?)', (number, name))
+    def rooms(self, id, number, name):
+        self.cursor.execute('INSERT INTO vet_clinic.rooms (roomID, number, name) VALUES (?, ?, ?)', (id, number, name))
 
-    def equipment(self, eqName, status, room_number, quantity):
-        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, room_number, quantity) VALUES (?, ?, ?, ?)'
-        self.cursor.execute(qr, (eqName, status, room_number, quantity))
+    def equipment(self, eqName, status, roomID, quantity):
+        qr = 'INSERT INTO vet_clinic.equipment (eqName, status, roomID, quantity) VALUES (?, ?, ?, ?)'
+        self.cursor.execute(qr, (eqName, status, roomID, quantity))
 
-    def visits(self, petID, employeeID, registration_date, planned_date, real_date, cost, number):
+    def visits(self, petID, employeeID, registration_date, planned_date, real_date, cost, roomID):
         qr = '''INSERT INTO vet_clinic.visits
-        (petID, employeeID, registration_date, planned_date, real_date, cost, number) 
+        (petID, employeeID, registration_date, planned_date, real_date, cost, roomID) 
         VALUES (?, ?, ?, ?, ?, ?, ?)'''
-        self.cursor.execute(qr, (petID, employeeID, registration_date, planned_date, real_date, cost, number))
+        self.cursor.execute(qr, (petID, employeeID, registration_date, planned_date, real_date, cost, roomID))
 
     def pets(self, ownerID, sex, atype, birthdate, weight, height):
         qr = 'INSERT INTO vet_clinic.pets (ownerID, sex, type, birthdate, weight, height) VALUES (?, ?, ?, ?, ?, ?)'
@@ -81,12 +81,12 @@ def fill(cursor):
     def room_fill():
         rooms = {1: 'recepcja', 2: 'gabinet 1', 3: 'gabinet 2', 4: 'socjal', 5: 'zaplecze', 6: 'gabinet zabiegowy'}
         for key, val in rooms.items():
-            vet.rooms(key + 100, val)
+            vet.rooms(key, key + 100, val)
 
     def equipment_fill():
         names = pd.read_excel('generate/meds.xlsx', names=['name'])['name']
         for name in names.values:
-            vet.equipment(str(name), True, random.randint(2, 3) + 100, random.randint(0, 5))
+            vet.equipment(str(name), True, random.randint(2, 3), random.randint(0, 5))
 
     def meds_fill():
         for name in meds.values:
@@ -191,7 +191,7 @@ def fill(cursor):
 
                     vet.visits(petID=petID, employeeID=employeeID, registration_date=registation_day,
                                planned_date=planned_date, real_date=real_date, cost=cost,
-                               number=random.randint(102, 103))
+                               roomID=random.randint(2, 3))
 
                     # wylosować lek i ilość
                     med_prescribed = meds.sample(random.randint(0, 3))
