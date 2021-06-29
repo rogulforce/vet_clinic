@@ -25,7 +25,7 @@ class Fulfillment:
     def visits(self, petID, employeeID, registration_date, planned_date, real_date, cost, number):
         qr = '''INSERT INTO vet_clinic.visits
         (petID, employeeID, registration_date, planned_date, real_date, cost, number) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+        VALUES (?, ?, ?, ?, ?, ?, ?)'''
         self.cursor.execute(qr, (petID, employeeID, registration_date, planned_date, real_date, cost, number))
 
     def pets(self, ownerID, sex, atype, birthdate, weight, height):

@@ -14,7 +14,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 ![Schemat](resources/images/schema.png?raw=true)
 
-* wygenerowanie potrzebnych tabel przu użyciu `main.py`, SQLowy kod znajduje się w `db_schema/db_creation.sql`
+* wygenerowanie potrzebnych tabel przy użyciu `main.py`, SQLowy kod znajduje się w `db_schema/db_creation.sql`
 
 # Część 2 - skryptowe wypełnienie bazy (15p)
 
