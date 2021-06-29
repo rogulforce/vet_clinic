@@ -141,7 +141,14 @@ czyli raport.
 # Część 5 - dokumentacja (15p)
 
 * spis użytych technologii
-  * znajduje się w `user_manual.md`
+  * Pycharm 2020.1.3
+  * dbdiagram.io
+
+  * Windows 10
+
+  * MariaDB server 10.5
+	
+  * Python 3.9 z paczkami z pliku `requirements.txt`
 
 
 * lista plików i ich zawartości
