@@ -32,7 +32,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-    os.system(r'jupyter nbconvert --to html analysis.ipynb')
     # with open('../db_schema/db_creation.sql') as file:
     #     a = file.read()
     # execs = a.split(';')
