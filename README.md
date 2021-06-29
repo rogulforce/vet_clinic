@@ -175,23 +175,11 @@ czyli raport.
 	
 
 * dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem
-  * meds / drugID - meds_prescribed / drugID
-	* połączenie przypisanego leku z bazą leków
-  * meds_prescribed / visitID - visits / visitID
-	* połączenie przypisanego leku z wizytą
-  * employees / employeeID - visits / employeeID
-	* połączenie pracownika z wizytą
-	
-  * pets / petID - visits / petID
-	* połączenie zwirzaka z wizytą
-  * pets / ownerID - owners / ownerID
-	* połączenie zwierzaka z właścicielem
-	
-  * visits / number - rooms / number
-	* połączenie wizyty z pokojem
-	
-  * equipment / number - rooms / number
-	* połączenie pokoju ze sprzętem 
+  * meds
+  	* klucze kandydujące: `drugID`, `name`
+  	* klucz główny: `drugID`
+  	* zależności funkcyjne: trywialne (np. `ordered` -> `ordered`), `drugID` -> pozostałe pozdbiory atrybutów relacji, `name` -> pozostałe podzbiory atrybutów relacji
+  	* komentarz: `drugID` jest oczywiście unikatowym kluczem głównym. `name` jest unikatowym atrybutem. w naszej bazie danych leki określamy jako substancje czynne - stąd każda wartość jest unikatowa. 
 	
 * uzasadnienie, że baza jest w EKNF
   * BRAK PÓKI CO (?)
