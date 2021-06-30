@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Raport kliniki weterynatyjnej</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+    body{
+        margin:0;
+        background:whitesmoke;
+    }
+    iframe{
+      border: hidden;
+    }
+    .content{
+        background-color: white;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 1020px;
+    }</style>
+</head>
+<body>
+    <div class="content">
+        <h1>Analiza kliniki weterynaryjnej</h1>
+        
+        <!-- *** Section 1 *** --->
+        <h2>Liczba wizyt w poszczególnych miesiącach</h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=report\graph1.html></iframe>
+        
+        <!-- *** Section 2 *** --->
+        <h2>Bilans zysków i strat</h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=report\graph2.html></iframe>
+        
+        <!-- *** Section 3 *** --->
+        <h2>Najdłużej czekający pacięci</h2><table class="table table-striped">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>petID</th>
+      <th>wait_time (hours)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>287</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>288</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>81</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>129</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>211</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>84</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>53</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>150</td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>230</td>
+      <td>356</td>
+    </tr>
+  </tbody>
+</table>
+        
+        <!-- *** Section 3 *** --->
+        <h2>Rozkład masy zwierzaków </h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=report\graph3.html></iframe>
+        
+        <!-- *** Section 4 *** --->
+        <h2>zarobki lekarzy w stosunku do przychodów z wizyt </h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=report\graph4.html></iframe>
+        
+        <!-- *** Section 5 *** --->
+        <h2>Najczęściej przepisywane leki </h2><table class="table table-striped">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>total quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10</td>
+      <td>apomorphine</td>
+      <td>232.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>64</td>
+      <td>lufenuron</td>
+      <td>229.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21</td>
+      <td>cephalexin</td>
+      <td>228.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>101</td>
+      <td>pirlimycin</td>
+      <td>214.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>13</td>
+      <td>atipamezole</td>
+      <td>209.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>34</td>
+      <td>clindamycin</td>
+      <td>209.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2</td>
+      <td>alprazolam</td>
+      <td>207.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>73</td>
+      <td>metoclopramide</td>
+      <td>207.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>15</td>
+      <td>benazepril</td>
+      <td>205.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>120</td>
+      <td>tepoxalin</td>
+      <td>204.0</td>
+    </tr>
+  </tbody>
+</table>
+        
+        <!-- *** Section 6 *** --->
+        <h2>Procentowy podział kosztów</h2>
+        <iframe width="1000" height="550" seamless="seamless" scrolling="no" src=report\graph5.html></iframe>
+    </div>
+</body>
+</html>
