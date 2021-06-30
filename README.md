@@ -10,7 +10,7 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 # Część 1 - projekt i utworzenie schematu (10p)
 * analiza potrzebnych danych
 	* na zasadzie burzy mózgów i researchu	
-* utworzenie potrzebnego schematu za pomocą narzędzia `ERD EDITOR` - dodatku do `Visual Studio Code`
+* utworzenie potrzebnego schematu za pomocą narzędzia `dbdiagram.io`
 
 ![Schemat](resources/images/schema.png?raw=true)
 
@@ -23,60 +23,63 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 	* zrandomizowanie wartości (imiona, nazwiska, numery tel, pochodzenie)
 	* zapisanie do `data/users_randomized.csv` przy pomocy `python pandas`
 
-* zapisanie typoowych leków, sprzętów itd do plików `.xlsx` i `.csv`	
+* zapisanie typowych leków, sprzętów itd do plików `.xlsx` i `.csv`	
   
 * tworzenie bazy przy użyciu `main.py`
 
 
 * uzupełnianie bazy przy użyciu `main.py` (kod znajduje się w `tables_fulfill.py`)
-	* employees
-		* pracownicy
-	  		* księgowa
-	  		* recepcjonistka
-	  		* szef
-	  		* 3 weterynarzy
-	 		* osoba sprzątająca
-	 	* zarobki - na podstawie strony wynagrodzenia.pl
-	 	* imiona i nazwiska na podstawie zrandomizowanych wartości z bazy użytkowników Facebooka
-	* rooms
-		* 2 gabinety weterynarzy
-	  	* gabinet zabiegowy
-	  	* recepcja
-	  	* pomieszczenie socjalne
-	  	* zaplecze
-	* equipment
-	  	
-		* lista, z której bierzemy informacje znajduje się w pliku `meds.xlsx`
-	  	
-		* wygenerowano losowo dane liczbowe
-	  	
-		* pomieszczenie na podstawie informacji o pomieszczeniach
-	* meds
-	  	
-		* lista, z której bierzemy informacje znajduje się w pliku `drugs.csv`
-		* wygenerowane losowo dane liczbowe
-	* owners
-		* losowanie z zakresu, każdemu przypisujemy od 1 do kilku zwierząt wg prawdopodobiństwa
+  * employees
+	* pracownicy
+		* księgowa
+		* recepcjonistka
+		* szef
+		* 3 weterynarzy
+		* osoba sprzątająca
+	* zarobki - na podstawie strony wynagrodzenia.pl
+	* imiona i nazwiska na podstawie zrandomizowanych wartości z bazy użytkowników Facebooka
+  * rooms
+	* gabinety weterynarzy
 	
-	* pets
+	* gabinet zabiegowy
+		  
+	* recepcja
+		  
+	* pomieszczenie socjalne
+		  
+	* zaplecze
+  * equipment
+	* lista, z której bierzemy informacje znajduje się w pliku `meds.xlsx`
 	  	
-		* psy: regresja liniowa na podstawie pliku `dogs.xlsx`
+	* wygenerowano losowo dane liczbowe
 	  	
-		* waga, wzrost oraz czas życia wszystkich zwierząt na podstawie informacji dostępnych w internecie
-		* wygenerowana losowo data urodzenia
+	* pomieszczenie na podstawie informacji o pomieszczeniach
+  * meds
+	  	
+	* lista, z której bierzemy informacje znajduje się w pliku `drugs.csv`
+	* wygenerowane losowo dane liczbowe
+  * owners
+	* losowanie z zakresu, każdemu przypisujemy od 1 do kilku zwierząt wg prawdopodobiństwa
 	
-	* visits
-		* po 20 dziennie, część odwołana, wg prawdopodobieństwa
-	  	* za odwołaną wizytę płaci się opłatę manipulacyjną w wysokośći 50pln
+  * pets
+	  	
+	* psy: regresja liniowa na podstawie pliku `dogs.xlsx`
+	  	
+	* waga, wzrost oraz czas życia wszystkich zwierząt na podstawie informacji dostępnych w internecie
+	* wygenerowana losowo data urodzenia
 	
-		* **przypisanie zwierzęcia do lekarza prowadzącego**
+  * visits
+	* po 20 dziennie, część odwołana, wg prawdopodobieństwa
+	* za odwołaną wizytę płaci się opłatę manipulacyjną w wysokośći 50pln
+
+	* **przypisanie zwierzęcia do lekarza prowadzącego**
 		
-	* meds_prescribed
+  * meds_prescribed
 		
-		* na podstawie wizyty
-	* cash flow
+	* na podstawie wizyty
+  * cash flow
 	  	
-		* na podstawie wizyt i pracowników
+	* na podstawie wizyt i pracowników
 		
 	  
 * przykładowe wyniki, dla poszczególnych tabel, przy użyciu zapytania:
@@ -135,13 +138,14 @@ Przed przystąpieniem do dalszych części należy przejść do pliku `user_manu
 
 # Część 4 - raport (10p)
 
-Po wypełnieniu poleceń z `user_manual.md` powinien pojawić się plik `final_code/analiza.html`,
+Po wypełnieniu poleceń z `user_manual.md` (czyli też uruchomieniu `main.py`) powinien pojawić się plik `analiza.html`,
 czyli raport.
 
 # Część 5 - dokumentacja (15p)
 
 * spis użytych technologii
   * Pycharm 2020.1.3
+	
   * dbdiagram.io
 
   * Windows 10
@@ -152,6 +156,12 @@ czyli raport.
 
 
 * lista plików i ich zawartości
+  * `analiza.html` -> plik z analizą z `#3` i `#4` w formie `.html`
+  * `main.py` -> skypt generujący i wypełniający bazę oraz tworzący raport
+  * `user_manual.md` -> instrukcja inicjacyjna
+  * `requirements.txt` -> potrzebne pythonowe paczki
+  * `README.md` -> sprawozdanie z całości projektu
+
   * data
 	* `dogs.xlsx` -> informacje o psach
 	* `drugs.csv` ->  informacje o lekach
@@ -160,8 +170,6 @@ czyli raport.
 	* `db_creation.sql` -> kod tworzacy bazę danych
 	* `schema.vuerd.json` -> schemat bazy danych
   * final_code
-	* `analiza.html` -> notebook z analizą z `#3` i `#4` w formie `.html`
-	* `main.py` -> skypt generujący i wypełniający bazę oraz tworzący raport
 	* `schema_creaction.py` -> plik zawierający funkcje potrzebne do połączenia z bazą
 	* `tables_fulfill.py` -> plik zawierający funkcje potrzebne do wypełnienia bazy
 	* `report` -> folder zawierający wykresy do raportu  
@@ -178,7 +186,7 @@ czyli raport.
 
 * schemat projektu bazy danych
   
-  * znajduje się w na początku `README.md`
+  * znajduje się w na początku `README.md` (część `#1`)
 	
 
 * dla każdej relacji listę zależności funkcyjnych z wyjaśnieniem
@@ -231,5 +239,5 @@ czyli raport.
 * uzasadnienie, że baza jest w EKNF
   * jak wykazaliśmy w poprzednim podpunkcie, każda nietrywialna zależność funkcyjna albo zaczyna się od nadklucza albo kończy się atrybutem elementarnym. Oznacza to, że baza jest w EKNF. 
 * opis, co było najtrudniejsze podczas realizacji projektu
-	* uzasadnienie, że baza jest w EKNF
+	* uzasadnienie, że baza jest w EKNF - musieliśmy zmienić nieco sam schemat bazy, by baza taka się stała.
 	* wyeliminowanie problemów technicznych związanych z generowaniem skryptowym i wypełnianiem bazy
