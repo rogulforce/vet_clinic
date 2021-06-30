@@ -213,10 +213,10 @@ czyli raport.
   	* zależności funkcyjne: trywialne, `roomID` -> pozostałe pozdbiory atrybutów relacji, `number` -> pozostałe pozdbiory atrybutów relacji
   	* komenatarz: klucz główny relacji jest atrybutem unikatowym. każdy pokój posiada swój unikatowy numer (unikoatowy w ramach kliniki). nie użyliśmy numeru pokoju jako klucza głównego, ponieważ czasami numery pokojów zostają zmienione, a zmienienie kluczy głównych w całej bazie danych jest bardzo niepożądaną operacją.
   * equipment
-	* klucze kandydujące: `eqID`
+	* klucze kandydujące: `eqID`, `(eqName, roomID, status)` 
   	* klucz główny: `eqID`
-  	* zależności funkcyjne: trywialne, `eqID` -> pozostałe pozdbiory atrybutów relacji
-  	* komenatarz: klucz główny relacji jest atrybutem unikatowym.
+  	* zależności funkcyjne: trywialne, `eqID` -> pozostałe pozdbiory atrybutów relacji, `(eqName, roomID, status)` -> pozostałe podzbiory atrybutów relacji
+  	* komenatarz: klucz główny relacji jest atrybutem unikatowym. drugi z kluczy kandydujących również jednoznacznie identyfikuje krotkę. 
   * visits
   	* klucze kandydujące: `visitID`
   	* klucz główny: `visitID`
