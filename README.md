@@ -221,10 +221,10 @@ czyli raport.
   	* zależności funkcyjne: trywialne, `roomID` -> pozostałe pozdbiory atrybutów relacji, `number` -> pozostałe pozdbiory atrybutów relacji
   	* komenatarz: klucz główny relacji jest atrybutem unikatowym. każdy pokój posiada swój unikatowy numer (unikoatowy w ramach kliniki). nie użyliśmy numeru pokoju jako klucza głównego, ponieważ czasami numery pokojów zostają zmienione, a zmienienie kluczy głównych w całej bazie danych jest bardzo niepożądaną operacją.
   * equipment
-	* klucze kandydujące: `eqID`, `(eqName, status, room_number)` 
+	* klucze kandydujące: `eqID`, `(eqName, roomID, status)` 
   	* klucz główny: `eqID`
-  	* zależności funkcyjne: trywialne, `eqID` -> pozostałe pozdbiory atrybutów relacji, `(eqName, status, room_number)` ->  pozostałe pozdbiory atrybutów relacji
-  	* komenatarz: klucz główny relacji jest atrybutem unikatowym. klucz kandydujący kompozytowy również jednoznacznie identyfikuje krotkę.
+  	* zależności funkcyjne: trywialne, `eqID` -> pozostałe pozdbiory atrybutów relacji, `(eqName, roomID, status)` -> pozostałe podzbiory atrybutów relacji
+  	* komenatarz: klucz główny relacji jest atrybutem unikatowym. drugi z kluczy kandydujących również jednoznacznie identyfikuje krotkę. 
   * visits
   	* klucze kandydujące: `visitID`
   	* klucz główny: `visitID`
@@ -237,8 +237,7 @@ czyli raport.
   	* komenatarz: klucz główny relacji jest atrybutem unikatowym
   	
 * uzasadnienie, że baza jest w EKNF
-  * jak wykazaliśmy w poprzednim podpunkcie, każda nietrywialna zależność funkcyjna albo zaczyna się od nadklucza albo kończy się na
-atrybucie elementarnym. Oznacza to, że baza jest w EKNF. 
+  * jak wykazaliśmy w poprzednim podpunkcie, każda nietrywialna zależność funkcyjna albo zaczyna się od nadklucza albo kończy się atrybutem elementarnym. Oznacza to, że baza jest w EKNF. 
 * opis, co było najtrudniejsze podczas realizacji projektu
 	* uzasadnienie, że baza jest w EKNF - musieliśmy zmienić nieco sam schemat bazy, by baza taka się stała.
 	* wyeliminowanie problemów technicznych związanych z generowaniem skryptowym i wypełnianiem bazy
